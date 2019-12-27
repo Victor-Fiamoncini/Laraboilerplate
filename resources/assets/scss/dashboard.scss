@@ -1,0 +1,14 @@
+.dashboard-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    @media screen and (max-width: $tb + 1) {
+        flex-direction: column;
+    }
+}
+
+.main-content {
+    @media screen and (min-width: $tb + 1) {
+        width: 100%;
+    }
+}

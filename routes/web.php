@@ -14,3 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'AuthController@showLoginPage');
+
+Route::get('/dashboard', 'UserController@index');
+

@@ -1,0 +1,74 @@
+/**
+ * Variables
+ * =====================================================
+ */
+/**
+ * Resets
+ * =====================================================
+ */
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+}
+
+html,
+body,
+:root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/**
+ * Custom scrollbar
+ * =====================================================
+ */
+@media screen and (min-width: 769px) {
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5e72e4;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3b53de;
+}
+
+/**
+ * Imports
+ * =====================================================
+ */
+.dashboard-wrapper {
+  width: 100%;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+}
+@media screen and (max-width: 769px) {
+  .dashboard-wrapper {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+            flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .main-content {
+    width: 100%;
+  }
+}
