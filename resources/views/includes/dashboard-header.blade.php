@@ -48,7 +48,7 @@
                             @if(!empty(auth()->user()->url_cover))
                                 <img
                                     class="shadow fit-image"
-                                    src="storage/{{ auth()->user()->url_cover_thumb }}"
+                                    src="{{ Auth::user()->url_cover_thumb  }}"
                                     alt="{{ auth()->user()->name }}"
                                     title="{{ auth()->user()->name }}"
                                 >

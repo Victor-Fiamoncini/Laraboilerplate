@@ -59,7 +59,7 @@ class User extends Authenticatable
      */
     public function getUrlCoverAttribute(): string
     {
-        return !empty($this->cover) ? $this->cover : '';
+        return !empty($this->cover) ? Storage::url($this->cover) : '';
     }
 
     /**
@@ -69,7 +69,7 @@ class User extends Authenticatable
      */
     public function getUrlCoverThumbAttribute(): string
     {
-        return !empty($this->cover_thumb) ? $this->cover_thumb : '';
+        return !empty($this->cover_thumb) ? Storage::url($this->cover_thumb) : '';
     }
 
     /**
