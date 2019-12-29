@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Http\Requests\UserRegister as UserRegisterRequest;
+use App\Http\Requests\UserLogin as UserLoginRequest;
 use App\Support\Resizer;
 
 class AuthController extends Controller
@@ -51,23 +52,59 @@ class AuthController extends Controller
             $newUser->cover_thumb = $resizer->makeThumb();
         }
 
-        dd($newUser);
-
         if (!$newUser->save()) {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->withErrors('');
+            return redirect()->back()->withInput()->withErrors('');
         }
 
         auth()->loginUsingId($newUser->id);
 
-        return redirect()
-            ->route('dashboard.index')
-            ->with([
-                'status' => 'success',
-                'message' => $newUser->name . ', you were successfully registered!'
-            ]);
+        return redirect()->route('dashboard.index')->with([
+            'status' => 'success',
+            'message' => $newUser->name . ', you were successfully registered!'
+        ]);
+    }
+
+    /**
+     * Make user authentication
+     *
+     * @param App\Http\Requests\UserLogin $userLoginRequest
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function login(UserLoginRequest $userLoginRequest)
+    {
+        if (auth()->attempt($userLoginRequest->only(['email', 'password']))) {
+            $this->updateLoginInfos($userLoginRequest->getClientIp());
+            return redirect()->route('dashboard.index');
+        }
+
+        return redirect()->route('login')->withErrors('');
+    }
+
+    /**
+     * Logout user
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout()
+    {
+        auth()->logout();
+        return redirect()->route('login');
+    }
+
+    /**
+     * Update user login infos (date & ip)
+     *
+     * @param string $ip
+     * @return void
+     */
+    private function updateLoginInfos(string $ip): void
+    {
+        $user = User::where('id', auth()->user()->id);
+        $user->update([
+            'last_login_at' => date('Y-m-d H:i:s'),
+            'last_login_ip' => $ip,
+        ]);
     }
 
 }

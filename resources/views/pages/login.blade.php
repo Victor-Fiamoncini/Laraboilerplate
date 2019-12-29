@@ -46,7 +46,12 @@
                             <div class="text-center text-muted mb-4">
                                 <small>Or sign in with credentials</small>
                             </div>
-                            <form role="form">
+                            <form
+                                role="form"
+                                action="{{ route('login.do') }}"
+                                method="POST"
+                            >
+                                @csrf
                                 <div class="form-group mb-3">
                                     <div class="input-group input-group-alternative">
                                         <div class="input-group-prepend">
@@ -80,16 +85,16 @@
                                 <div class="custom-control custom-control-alternative custom-checkbox">
                                     <input
                                         class="custom-control-input"
-                                        id="customCheckLogin"
+                                        id="rememberCheck"
                                         type="checkbox"
                                         name="remeber"
                                     >
-                                    <label class="custom-control-label" for="customCheckLogin">
+                                    <label class="custom-control-label" for="rememberCheck">
                                         <span class="text-muted">Remember me</span>
                                     </label>
                                 </div>
                                 <div class="text-center">
-                                    <button type="button" class="btn btn-primary mt-4">
+                                    <button type="submit" class="btn btn-primary mt-4">
                                         Login
                                     </button>
                                 </div>
@@ -98,18 +103,12 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col-6">
-                            <a
-                                href="#"
-                                class="text-light"
-                            >
+                            <a href="#" class="text-light">
                                 <small>Forgot password?</small>
                             </a>
                         </div>
                         <div class="col-6 text-right">
-                            <a
-                                href="{{ route('register') }}"
-                                class="text-light"
-                            >
+                            <a href="{{ route('register') }}" class="text-light">
                                 <small>Create new account</small>
                             </a>
                         </div>

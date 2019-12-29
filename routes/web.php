@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'AuthController@showLoginPage')->name('login');
 
 /**
+ * "/login"
+ */
+Route::post('/login', 'AuthController@login')->name('login.do');
+
+/**
+ * "/logout"
+ */
+Route::get('/logout', 'AuthController@logout')->name('logout');
+
+/**
  * "/register"
  */
 Route::get('/register', 'AuthController@showRegisterPage')->name('register');

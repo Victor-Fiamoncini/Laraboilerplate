@@ -51,16 +51,16 @@ class Resizer
     public function makeThumb(): string
     {
         $filename =
-            bcrypt(time()) . '-thumb-' .
+            hash('sha256', time()) . '-thumb-' .
             $this->uploadFile->getFilename() . '.' .
             $this->uploadFile->getClientOriginalExtension();
 
-        $path = storage_path('app/public/'. $this->pathPrefix . '/' . $filename);
+        $path = public_path('/storage/' . $this->pathPrefix . '/' . $filename);
 
         Image::make($this->uploadFile->getRealPath())
             ->resize(320, 280)
             ->save($path);
 
-        return $this->pathPrefix . '' . $filename;
+        return $this->pathPrefix . '/' . $filename;
     }
 }

@@ -13,6 +13,9 @@ class UserController extends Controller
      */
     public function showIndexPage()
     {
-        return view('pages.index');
+        return view('pages.index')->with([
+            'status' => 'success',
+            'message' => auth()->user()->name . ', you were successfully registered!'
+        ]);
     }
 }
