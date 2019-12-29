@@ -80,8 +80,10 @@ class AuthController extends Controller
         }
 
         $this->updateLoginInfos($userLoginRequest->getClientIp());
-        return redirect()->route('dashboard.index');
-
+        return redirect()->route('dashboard.index')->with([
+            'status' => 'success',
+            'message' => 'Welcome ' . auth()->user()->name . '!'
+        ]);
     }
 
     /**

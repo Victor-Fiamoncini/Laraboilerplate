@@ -61,7 +61,7 @@
                                     class="
                                         form-group
                                         {{
-                                            $errors->has('password') || $errors->has('credentials')
+                                            $errors->has('email') || $errors->has('credentials')
                                                 ? 'placeholder-error '
                                                 : ''
                                         }}
