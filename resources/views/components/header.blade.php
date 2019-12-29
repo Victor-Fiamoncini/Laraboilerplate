@@ -8,7 +8,7 @@
                         {{ $title }}
                     </h1>
                     <p class="text-lead text-light">
-                        {{ $slot }}
+                        {{ $content }}
                     </p>
                 </div>
             </div>

@@ -8,7 +8,7 @@
         {{-- Header --}}
         @header
             @slot('title', 'Create a New Account!')
-            Use this awesome form to create a new account for free.
+            @slot('content', 'Use this awesome form to create a new account for free.')
         @endheader
         {{-- Form --}}
         <div class="container mt--8 pb-5">
@@ -22,7 +22,12 @@
                                 method="POST"
                             >
                                 @csrf
-                                <div class="form-group mb-3 {{ $errors->has('name') ? 'has-danger' : '' }}">
+                                <div
+                                    class="
+                                        form-group mb-3
+                                        {{ $errors->has('name') ? 'placeholder-error ' : '' }}
+                                    "
+                                >
                                     <div class="input-group input-group-alternative">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
@@ -43,7 +48,12 @@
                                         </small>
                                     @endif
                                 </div>
-                                <div class="form-group mb-3 {{ $errors->has('email') ? 'has-danger' : '' }}">
+                                <div
+                                    class="
+                                        form-group mb-3
+                                        {{ $errors->has('email') ? 'placeholder-error ' : '' }}
+                                    "
+                                >
                                     <div class="input-group input-group-alternative">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
@@ -64,7 +74,12 @@
                                         </small>
                                     @endif
                                 </div>
-                                <div class="form-group mb-3 {{ $errors->has('password') ? 'has-danger' : '' }}">
+                                <div
+                                    class="
+                                        form-group mb-3
+                                        {{ $errors->has('password') ? 'placeholder-error ' : '' }}
+                                    "
+                                >
                                     <div class="input-group input-group-alternative">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
@@ -91,7 +106,6 @@
                                         class="custom-file-input cursor-pointer"
                                         type="file"
                                         name="cover"
-                                        value="{{ old('cover') }}"
                                     >
                                     <label
                                         class="custom-file-label border-0 font-size-17"
@@ -144,6 +158,9 @@
                 .addClass('selected')
                 .find('small')
                 .text('File selected')
+                .addClass('text-success')
+                .siblings('i')
+                .addClass('color-success')
         })
     </script>
 @endsection

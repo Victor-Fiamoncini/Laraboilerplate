@@ -8,7 +8,7 @@
         {{-- Header --}}
         @header
             @slot('title', 'Welcome!')
-            Use this awesome form to sign in for free.
+            @slot('content', 'Use this awesome form to sign in for free.')
         @endheader
         {{-- Form --}}
         <div class="container mt--8 pb-5">
@@ -22,13 +22,21 @@
                             <div class="btn-wrapper text-center">
                                 <a href="#" class="btn btn-neutral btn-icon">
                                     <span class="btn-inner--icon">
-                                        <i class="fab fa-facebook-square"></i>
+                                        <img
+                                            src="{{ asset('assets/images/facebook.svg') }}"
+                                            alt="Facebook"
+                                            title="Facebook"
+                                        >
                                     </span>
                                     <span class="btn-inner--text">Facebook</span>
                                 </a>
                                 <a href="#" class="btn btn-neutral btn-icon">
                                     <span class="btn-inner--icon">
-                                        <i class="fab fa-google"></i>
+                                        <img
+                                            src="{{ asset('assets/images/google.svg') }}"
+                                            alt="Google"
+                                            title="Google"
+                                        >
                                     </span>
                                     <span class="btn-inner--text">Google</span>
                                 </a>

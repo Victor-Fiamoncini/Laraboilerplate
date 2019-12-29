@@ -1,0 +1,49 @@
+/**
+ * Custom classes
+ * ===============================================================================
+ */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.font-size {
+    &-17 {
+        font-size: 1.063rem;
+    }
+}
+
+.color {
+    &-gray {
+        color: $input-focus-color;
+
+    }
+    &-success {
+        color: #2dce89;
+        &:before {
+            color: #2dce89;
+        }
+    }
+}
+
+.placeholder-error {
+    ::placeholder {
+        color: #f5365c;
+        opacity: 1;
+    }
+    :-ms-input-placeholder {
+        color: #f5365c;
+    }
+    ::-ms-input-placeholder {
+        color: #f5365c;
+    }
+    :-moz-placeholder {
+        color: #f5365c;
+    }
+    ::-webkit-input-placeholder {
+        color: #f5365c;
+    }
+    i {
+        color: #f5365c !important;
+    }
+}
+

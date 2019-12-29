@@ -14,6 +14,9 @@ class AuthController extends Controller
      */
     public function showLoginPage()
     {
+        if (auth()->check()) {
+            return redirect()->route('dashboard.index');
+        }
         return view('pages.login');
     }
 
@@ -36,25 +39,30 @@ class AuthController extends Controller
      */
     public function storeUser(UserRegisterRequest $userRegisterRequest)
     {
-        $user = new User();
-        $user->name = $userRegisterRequest->name;
-        $user->email = $userRegisterRequest->email;
-        $user->password = $userRegisterRequest->password;
+        $newUser = new User();
+        $newUser->name = $userRegisterRequest->name;
+        $newUser->email = $userRegisterRequest->email;
+        $newUser->password = $userRegisterRequest->password;
 
         if (!empty($userRegisterRequest->file('cover'))) {
-            $user->cover = $userRegisterRequest->file('cover')->store('users');
+            $newUser->cover = $userRegisterRequest->file('cover')->store('users');
         }
 
-        if (!$user->save()) {
+        if (!$newUser->save()) {
             return redirect()
                 ->back()
                 ->withInput()
                 ->withErrors('');
         }
 
-        auth()->loginUsingId($user->id);
+        auth()->loginUsingId($newUser->id);
 
-        return redirect()->route('dashboard.index');
+        return redirect()
+            ->route('dashboard.index')
+            ->with([
+                'status' => 'success',
+                'message' => $newUser->name . ', you were successfully registered!'
+            ]);
     }
 
 }

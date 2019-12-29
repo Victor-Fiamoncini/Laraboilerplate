@@ -11,6 +11,20 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
+     * The primary-key attribute.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'id';
+
+    /**
+     * Table name attribute.
+     *
+     * @var string
+     */
+    public $tableName = 'users';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -36,4 +50,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Mutator "password"
+     *
+     * @param string $password
+     * @return void
+     * @throws \Exception
+     */
+    public function setPasswordAttribute(string $password): void
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
 }

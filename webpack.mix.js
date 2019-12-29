@@ -33,4 +33,8 @@ mix
         'resources/assets/js',
         'public/assets/js'
     )
+    .copyDirectory(
+        'resources/assets/images',
+        'public/assets/images'
+    )
     .options({ processCssUrls: false })

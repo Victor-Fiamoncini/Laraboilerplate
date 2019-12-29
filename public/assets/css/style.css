@@ -49,6 +49,10 @@ body {
 }
 
 /**
+ * Imports
+ * ===============================================================================
+ */
+/**
  * Custom classes
  * ===============================================================================
  */
@@ -63,11 +67,53 @@ body {
 .color-gray {
   color: #8898aa;
 }
+.color-success {
+  color: #2dce89;
+}
+.color-success:before {
+  color: #2dce89;
+}
 
-/**
- * Imports
- * ===============================================================================
- */
+.placeholder-error ::-webkit-input-placeholder {
+  color: #f5365c;
+  opacity: 1;
+}
+
+.placeholder-error ::-moz-placeholder {
+  color: #f5365c;
+  opacity: 1;
+}
+
+.placeholder-error :-ms-input-placeholder {
+  color: #f5365c;
+  opacity: 1;
+}
+
+.placeholder-error ::-ms-input-placeholder {
+  color: #f5365c;
+  opacity: 1;
+}
+
+.placeholder-error ::placeholder {
+  color: #f5365c;
+  opacity: 1;
+}
+.placeholder-error :-ms-input-placeholder {
+  color: #f5365c;
+}
+.placeholder-error ::-ms-input-placeholder {
+  color: #f5365c;
+}
+.placeholder-error :-moz-placeholder {
+  color: #f5365c;
+}
+.placeholder-error ::-webkit-input-placeholder {
+  color: #f5365c;
+}
+.placeholder-error i {
+  color: #f5365c !important;
+}
+
 /**
  * Dashboard
  * ===============================================================================
