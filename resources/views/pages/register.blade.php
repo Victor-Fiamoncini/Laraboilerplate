@@ -101,6 +101,32 @@
                                         </small>
                                     @endif
                                 </div>
+                                <div
+                                    class="
+                                        form-group mb-3
+                                        {{ $errors->has('password') ? 'placeholder-error ' : '' }}
+                                    "
+                                >
+                                    <div class="input-group input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-unlock-alt"></i>
+                                            </span>
+                                        </div>
+                                        <input
+                                            class="form-control display-5"
+                                            placeholder="Password Confirmation"
+                                            type="password"
+                                            name="password_confirmation"
+                                            value="{{ old('password_confirmation') }}"
+                                        >
+                                    </div>
+                                    @if ($errors->has('password'))
+                                        <small class="form-text text-danger">
+                                            {{ $errors->first('password') }}
+                                        </small>
+                                    @endif
+                                </div>
                                 <div class="input-group input-group-alternative">
                                     <input
                                         id="cover"
