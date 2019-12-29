@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Http\Requests\UserRegister as UserRegisterRequest;
+use App\Support\Resizer;
 
 class AuthController extends Controller
 {
@@ -45,8 +46,12 @@ class AuthController extends Controller
         $newUser->password = $userRegisterRequest->password;
 
         if (!empty($userRegisterRequest->file('cover'))) {
-            $newUser->cover = $userRegisterRequest->file('cover')->store('users');
+            $resizer = new Resizer($userRegisterRequest->file('cover'), 'users');
+            $newUser->cover = $resizer->storeOriginalImage();
+            $newUser->cover_thumb = $resizer->makeThumb();
         }
+
+        dd($newUser);
 
         if (!$newUser->save()) {
             return redirect()

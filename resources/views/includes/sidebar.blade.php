@@ -16,7 +16,10 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand p-0 m-0 mt-2" href="/dashboard">
-            <img src={boxLogo} alt="IFC - Rio do Sul" />
+            <img
+                src=""
+                alt=""
+            >
         </a>
         <div class="collapse navbar-collapse" id="mobile-menu">
             <div class="navbar-collapse-header d-md-none">
@@ -24,8 +27,8 @@
                     <div class="col-6 collapse-brand">
                         <a href="/dashboard">
                             <img
-                                src={boxLogo}
-                                alt="Logo IFBox"
+                                src=""
+                                alt=""
                             >
                         </a>
                     </div>
@@ -56,7 +59,7 @@
                     </a>
                 </li>
             </ul>
-            <hr class="my-3" />
+            <hr class="my-3">
         </div>
     </div>
 </nav>

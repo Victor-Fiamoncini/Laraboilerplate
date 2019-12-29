@@ -20,6 +20,7 @@
                                 role="form"
                                 action="{{ route('register.user') }}"
                                 method="POST"
+                                enctype="multipart/form-data"
                             >
                                 @csrf
                                 <div
