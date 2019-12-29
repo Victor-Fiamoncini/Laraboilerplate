@@ -73,12 +73,15 @@ class AuthController extends Controller
      */
     public function login(UserLoginRequest $userLoginRequest)
     {
-        if (auth()->attempt($userLoginRequest->only(['email', 'password']))) {
-            $this->updateLoginInfos($userLoginRequest->getClientIp());
-            return redirect()->route('dashboard.index');
+        if (!auth()->attempt($userLoginRequest->only(['email', 'password']))) {
+            return redirect()->back()->withInput()->withErrors([
+                'credentials' => 'Invalid credentials entered, please try again',
+            ]);
         }
 
-        return redirect()->route('login')->withErrors('');
+        $this->updateLoginInfos($userLoginRequest->getClientIp());
+        return redirect()->route('dashboard.index');
+
     }
 
     /**

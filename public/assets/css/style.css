@@ -114,6 +114,11 @@ body {
   color: #f5365c !important;
 }
 
+input[type=file] ~ label:after {
+  padding-top: 12px;
+  font-size: 0.938rem;
+}
+
 /**
  * Dashboard
  * ===============================================================================

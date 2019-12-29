@@ -45,6 +45,11 @@
                         <div class="card-body px-lg-5 py-lg-5">
                             <div class="text-center text-muted mb-4">
                                 <small>Or sign in with credentials</small>
+                                @if ($errors->has('credentials'))
+                                    <small class="d-block mt-2 text-danger">
+                                        {{ $errors->first('credentials')}}
+                                    </small>
+                                @endif
                             </div>
                             <form
                                 role="form"
@@ -52,7 +57,16 @@
                                 method="POST"
                             >
                                 @csrf
-                                <div class="form-group mb-3">
+                                <div
+                                    class="
+                                        form-group
+                                        {{
+                                            $errors->has('password') || $errors->has('credentials')
+                                                ? 'placeholder-error '
+                                                : ''
+                                        }}
+                                    "
+                                >
                                     <div class="input-group input-group-alternative">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
@@ -62,12 +76,27 @@
                                         <input
                                             class="form-control"
                                             placeholder="Email"
-                                            type="email"
+                                            type="text"
                                             name="email"
+                                            value="{{ old('email') }}"
                                         >
                                     </div>
+                                    @if ($errors->has('email'))
+                                        <small class="form-text text-danger">
+                                            {{ $errors->first('email') }}
+                                        </small>
+                                    @endif
                                 </div>
-                                <div class="form-group">
+                                <div
+                                    class="
+                                        form-group
+                                        {{
+                                            $errors->has('password') || $errors->has('credentials')
+                                                ? 'placeholder-error '
+                                                : ''
+                                        }}
+                                    "
+                                >
                                     <div class="input-group input-group-alternative">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
@@ -79,8 +108,14 @@
                                             placeholder="Password"
                                             type="password"
                                             name="password"
+                                            value="{{ old('password') }}"
                                         >
                                     </div>
+                                    @if ($errors->has('password'))
+                                        <small class="form-text text-danger">
+                                            {{ $errors->first('password') }}
+                                        </small>
+                                    @endif
                                 </div>
                                 <div class="custom-control custom-control-alternative custom-checkbox">
                                     <input
