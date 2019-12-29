@@ -58,7 +58,7 @@ class Resizer
         $path = public_path('/storage/' . $this->pathPrefix . '/' . $filename);
 
         Image::make($this->uploadFile->getRealPath())
-            ->resize(320, 280)
+            ->resize(500, 500)
             ->save($path);
 
         return $this->pathPrefix . '/' . $filename;

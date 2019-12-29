@@ -36,5 +36,16 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth'], 'as' => 'dashbo
      * "/dashboard"
      */
     Route::get('/', 'UserController@showIndexPage')->name('index');
+
+    /**
+     * "/dashboard/user/{user}/edit"
+     */
+    Route::get('/user/{user}/edit', 'UserController@edit')->name('user.edit');
+
+    /**
+     * "/dashboard/user/update"
+     */
+    Route::put('/user/{user}', 'UserController@update')->name('user.update');
+
 });
 

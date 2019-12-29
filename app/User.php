@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -50,6 +51,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the user photo (cover) path
+     *
+     * @return string
+     */
+    public function getUrlCoverAttribute(): string
+    {
+        return !empty($this->cover) ? $this->cover : '';
+    }
+
+    /**
+     * Get the user thumb (cover_thumb) path
+     *
+     * @return string
+     */
+    public function getUrlCoverThumbAttribute(): string
+    {
+        return !empty($this->cover_thumb) ? $this->cover_thumb : '';
+    }
 
     /**
      * Mutator "password"

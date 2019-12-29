@@ -2,6 +2,12 @@
  * Custom classes
  * ===============================================================================
  */
+.fit-image {
+    object-fit: cover;
+    object-position: center;
+}
+
+
 .cursor-pointer {
     cursor: pointer;
 }

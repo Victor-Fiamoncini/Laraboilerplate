@@ -15,22 +15,15 @@
         >
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand p-0 m-0 mt-2" href="/dashboard">
-            <img
-                src=""
-                alt=""
-            >
+        <a class="text-center" href="{{ route('dashboard.index') }}">
+            LaraBoilerPlate
         </a>
+        <hr class="mb-0 mt-3">
         <div class="collapse navbar-collapse" id="mobile-menu">
             <div class="navbar-collapse-header d-md-none">
                 <div class="row">
                     <div class="col-6 collapse-brand">
-                        <a href="/dashboard">
-                            <img
-                                src=""
-                                alt=""
-                            >
-                        </a>
+                       LaraBoilerPlate
                     </div>
                     <div class="col-6 collapse-close">
                         <button
@@ -48,18 +41,22 @@
                     </div>
                 </div>
             </div>
+            {{-- Menu --}}
             <ul class="navbar-nav">
                 <li class="nav-item">
+                    <a class="nav-link pt-0 mb-2" href="{{ route('dashboard.index') }}">
+                        <i class="ni ni-app text-primary"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a
-                        activeclass="active"
-                        class="nav-link"
-                        href="/dashboard"
+                        class="nav-link pt-0 mb-2"
+                        href="{{ route('dashboard.user.edit', auth()->user()->id) }}"
                     >
-                        <i class="ni ni-app text-primary"></i> Clientes
+                        <i class="ni ni-single-02 text-yellow"></i> Profile
                     </a>
                 </li>
             </ul>
-            <hr class="my-3">
         </div>
     </div>
 </nav>

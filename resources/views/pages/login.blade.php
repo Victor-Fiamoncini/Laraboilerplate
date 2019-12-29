@@ -2,7 +2,7 @@
 @extends('templates.auth-master')
 
 {{-- Content --}}
-@section('title', 'Login')
+@section('title', 'Sign in')
 @section('auth-content')
     <div class="main-content bg-default">
         {{-- Header --}}
@@ -130,7 +130,7 @@
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary mt-4">
-                                        Login
+                                        Sign in
                                     </button>
                                 </div>
                             </form>
@@ -144,7 +144,7 @@
                         </div>
                         <div class="col-6 text-right">
                             <a href="{{ route('register') }}" class="text-light">
-                                <small>Create new account</small>
+                                <small>Sign up</small>
                             </a>
                         </div>
                     </div>

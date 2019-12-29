@@ -20,11 +20,11 @@ body,
 :root {
   height: 100%;
   width: 100%;
-  background: #172b4d;
 }
 
 body {
   overflow-x: hidden;
+  background: #172b4d;
 }
 
 /**
@@ -56,6 +56,13 @@ body {
  * Custom classes
  * ===============================================================================
  */
+.fit-image {
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
