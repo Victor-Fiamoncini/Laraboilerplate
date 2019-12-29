@@ -11,7 +11,7 @@ class AuthController extends Controller
      */
     public function showLoginPage()
     {
-        return view('admin.pages.login');
+        return view('pages.login');
     }
 
     /**
@@ -19,7 +19,7 @@ class AuthController extends Controller
      */
     public function showRegisterPage()
     {
-        return view('admin.pages.users.register');
+        return view('pages.register');
     }
 
     /**

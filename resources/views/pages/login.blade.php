@@ -1,26 +1,18 @@
 {{-- Parent --}}
-@extends('admin.templates.auth-master')
+@extends('templates.auth-master')
 
 {{-- Content --}}
 @section('title', 'Login')
 @section('auth-content')
     <div class="main-content bg-default">
-        <!-- Header -->
-        <div class="header bg-gradient-primary py-6 py-lg-6">
-            <div class="container">
-                <div class="header-body text-center mb-7">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-5 col-md-6">
-                            <h1 class="text-white">Welcome!</h1>
-                            <p class="text-lead text-light">
-                                Use these awesome form to login in your projects for free.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Page content -->
+        {{-- Header --}}
+        @header
+            @slot('title')
+                Welcome!
+            @endslot
+            Use this awesome form to sign in for free.
+        @endheader
+        {{-- Form --}}
         <div class="container mt--8 pb-5">
             <div class="row justify-content-center">
                 <div class="col-lg-5 col-md-7">
@@ -119,21 +111,7 @@
                 </div>
             </div>
         </div>
-        <footer class="py-5">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="copyright text-muted">
-                        &copy; {{ date('Y') }}
-                        <a
-                            href="https://github.com/Victor-Fiamoncini"
-                            class="font-weight-bold ml-1"
-                            target="_blank"
-                        >
-                            Victor B. Fiamoncini
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        {{-- Footer --}}
+        @include('includes.footer')
     </div>
 @endsection

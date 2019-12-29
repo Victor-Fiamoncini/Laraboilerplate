@@ -1,5 +1,5 @@
 {{-- Parent --}}
-@extends('admin.templates.master')
+@extends('templates.master')
 
 {{-- Content --}}
 @section('master')

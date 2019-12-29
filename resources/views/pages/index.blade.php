@@ -1,5 +1,5 @@
 {{-- Parent --}}
-@extends('admin.templates.dashboard-master')
+@extends('templates.dashboard-master')
 
 {{-- Content --}}
 @section('dashboard-content')
