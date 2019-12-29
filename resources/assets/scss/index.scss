@@ -7,6 +7,7 @@ $tb: 768px;
 $dt: 1024px;
 
 $main-color: #5e72e4;
+$input-focus-color: #8898aa;
 
 /**
  * Resets
@@ -26,6 +27,7 @@ body,
 :root {
     height: 100%;
     width: 100%;
+    background: #172b4d;
 }
 
 body {
@@ -52,6 +54,27 @@ body {
         background: darken($main-color, 8);
     }
 }
+
+/**
+ * Custom classes
+ * ===============================================================================
+ */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.font-size {
+    &-17 {
+        font-size: 1.063rem;
+    }
+}
+
+.color {
+    &-gray {
+        color: $input-focus-color;
+    }
+}
+
 /**
  * Imports
  * ===============================================================================

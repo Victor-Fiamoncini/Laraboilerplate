@@ -7,9 +7,7 @@
     <div class="main-content bg-default">
         {{-- Header --}}
         @header
-            @slot('title')
-                Create a New Account!
-            @endslot
+            @slot('title', 'Create a New Account!')
             Use this awesome form to create a new account for free.
         @endheader
         {{-- Form --}}
@@ -36,6 +34,7 @@
                                             placeholder="Name"
                                             type="text"
                                             name="name"
+                                            value="{{ old('name') }}"
                                         >
                                     </div>
                                 </div>
@@ -51,10 +50,11 @@
                                             placeholder="Email"
                                             type="email"
                                             name="email"
+                                            value="{{ old('email') }}"
                                         >
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <div class="input-group input-group-alternative">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
@@ -62,30 +62,32 @@
                                             </span>
                                         </div>
                                         <input
-                                            class="form-control"
+                                            class="form-control display-5"
                                             placeholder="Password"
                                             type="password"
                                             name="password"
+                                            value="{{ old('password') }}"
                                         >
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="input-group input-group-alternative">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-camera"></i>
-                                            </span>
-                                        </div>
-                                        <input
-                                            class="form-control"
-                                            placeholder="Photo"
-                                            type="file"
-                                            name="cover"
-                                        >
-                                    </div>
+                                <div class="input-group input-group-alternative">
+                                    <input
+                                        id="cover"
+                                        class="custom-file-input cursor-pointer"
+                                        type="file"
+                                        name="cover"
+                                        value="{{ old('cover') }}"
+                                    >
+                                    <label
+                                        class="custom-file-label border-0 font-size-17"
+                                        for="cover"
+                                    >
+                                        <i class="fas fa-camera mr-1"></i>
+                                        <small class="color-gray">No file selected</small>
+                                    </label>
                                 </div>
                                 <div class="text-center">
-                                    <button type="button" class="btn btn-primary my-4">
+                                    <button type="submit" class="btn btn-primary mt-4">
                                         Register
                                     </button>
                                 </div>
@@ -116,4 +118,17 @@
         {{-- Footer --}}
         @include('includes.footer')
     </div>
+@endsection
+
+{{-- Scripts --}}
+@section('scripts')
+    <script>
+        $('input[type="file"]').change(function() {
+            $(this)
+                .siblings('.custom-file-label')
+                .addClass('selected')
+                .find('small')
+                .text('File selected')
+        })
+    </script>
 @endsection

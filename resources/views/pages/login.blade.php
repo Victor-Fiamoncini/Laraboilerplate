@@ -7,9 +7,7 @@
     <div class="main-content bg-default">
         {{-- Header --}}
         @header
-            @slot('title')
-                Welcome!
-            @endslot
+            @slot('title', 'Welcome!')
             Use this awesome form to sign in for free.
         @endheader
         {{-- Form --}}
@@ -83,7 +81,7 @@
                                     </label>
                                 </div>
                                 <div class="text-center">
-                                    <button type="button" class="btn btn-primary my-4">
+                                    <button type="button" class="btn btn-primary mt-4">
                                         Login
                                     </button>
                                 </div>
