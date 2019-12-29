@@ -20,10 +20,11 @@ Route::post('/register/user', 'AuthController@storeUser')->name('register.user')
 /**
  * Private routes
  */
-Route::group(['prefix' => 'dashboard', 'middleware' => ['auth'], 'as' => 'admin.'], function () {
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth'], 'as' => 'dashboard.'], function () {
+
     /**
      * "/dashboard"
      */
-    Route::get('/dashboard', 'UserController@index');
+    Route::get('/', 'UserController@showIndexPage')->name('index');
 });
 

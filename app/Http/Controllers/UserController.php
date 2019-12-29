@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     /**
+     * Return dashboard main view
      *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function showIndexPage()
     {
-        return view('admin.pages.index');
+        return view('pages.index');
     }
 }

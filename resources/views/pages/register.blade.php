@@ -22,7 +22,7 @@
                                 method="POST"
                             >
                                 @csrf
-                                <div class="form-group mb-3">
+                                <div class="form-group mb-3 {{ $errors->has('name') ? 'has-danger' : '' }}">
                                     <div class="input-group input-group-alternative">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
@@ -37,8 +37,13 @@
                                             value="{{ old('name') }}"
                                         >
                                     </div>
+                                    @if ($errors->has('name'))
+                                        <small class="form-text text-danger">
+                                            {{ $errors->first('name') }}
+                                        </small>
+                                    @endif
                                 </div>
-                                <div class="form-group mb-3">
+                                <div class="form-group mb-3 {{ $errors->has('email') ? 'has-danger' : '' }}">
                                     <div class="input-group input-group-alternative">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
@@ -48,13 +53,18 @@
                                         <input
                                             class="form-control"
                                             placeholder="Email"
-                                            type="email"
+                                            type="text"
                                             name="email"
                                             value="{{ old('email') }}"
                                         >
                                     </div>
+                                    @if ($errors->has('email'))
+                                        <small class="form-text text-danger">
+                                            {{ $errors->first('email') }}
+                                        </small>
+                                    @endif
                                 </div>
-                                <div class="form-group mb-3">
+                                <div class="form-group mb-3 {{ $errors->has('password') ? 'has-danger' : '' }}">
                                     <div class="input-group input-group-alternative">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
@@ -69,6 +79,11 @@
                                             value="{{ old('password') }}"
                                         >
                                     </div>
+                                    @if ($errors->has('password'))
+                                        <small class="form-text text-danger">
+                                            {{ $errors->first('password') }}
+                                        </small>
+                                    @endif
                                 </div>
                                 <div class="input-group input-group-alternative">
                                     <input

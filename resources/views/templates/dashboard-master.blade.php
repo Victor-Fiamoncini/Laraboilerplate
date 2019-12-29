@@ -5,9 +5,9 @@
 @section('master')
     <div class="dashboard-wrapper">
         {{-- Sidebar --}}
-        @include('admin.includes.sidebar')
+        @include('includes.sidebar')
+        {{-- Dashboard content --}}
         <div class="main-content">
-            {{-- Dashboard content --}}
             @yield('dashboard-content')
         </div>
     </div>
