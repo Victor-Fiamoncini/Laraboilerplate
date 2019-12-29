@@ -3,5 +3,7 @@
 
 {{-- Content --}}
 @section('dashboard-content')
-    ef2ef
+    <div class="container-fluid">
+        Dashboard
+    </div>
 @endsection

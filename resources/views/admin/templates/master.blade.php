@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/argon-dashboard.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <title>Argon - @yield('title')</title>
+    <title>ArgonBoiler - @yield('title')</title>
 </head>
 <body>
     {{-- Root --}}

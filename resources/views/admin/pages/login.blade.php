@@ -1,9 +1,9 @@
 {{-- Parent --}}
-@extends('admin.templates.login-master')
+@extends('admin.templates.auth-master')
 
 {{-- Content --}}
 @section('title', 'Login')
-@section('login-content')
+@section('auth-content')
     <div class="main-content bg-default">
         <!-- Header -->
         <div class="header bg-gradient-primary py-6 py-lg-6">
@@ -13,7 +13,7 @@
                         <div class="col-lg-5 col-md-6">
                             <h1 class="text-white">Welcome!</h1>
                             <p class="text-lead text-light">
-                                Use these awesome forms to login or create new account in your project for free.
+                                Use these awesome form to login in your projects for free.
                             </p>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                         </div>
                         <div class="col-6 text-right">
                             <a
-                                href="#"
+                                href="{{ route('register') }}"
                                 class="text-light"
                             >
                                 <small>Create new account</small>
@@ -121,7 +121,7 @@
         </div>
         <footer class="py-5">
             <div class="container">
-                <div class="row text-center">
+                <div class="row justify-content-center">
                     <div class="copyright text-muted">
                         &copy; {{ date('Y') }}
                         <a

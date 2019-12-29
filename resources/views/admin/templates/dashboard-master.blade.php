@@ -7,8 +7,6 @@
         {{-- Sidebar --}}
         @include('admin.includes.sidebar')
         <div class="main-content">
-            {{-- Header --}}
-            @include('admin.includes.header')
             {{-- Dashboard content --}}
             @yield('dashboard-content')
         </div>

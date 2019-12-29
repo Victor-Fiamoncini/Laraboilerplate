@@ -2,18 +2,28 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+/**
+ * "/"
+ */
+Route::get('/', 'AuthController@showLoginPage')->name('login');
 
-Route::get('/', 'AuthController@showLoginPage');
+/**
+ * "/register"
+ */
+Route::get('/register', 'AuthController@showRegisterPage')->name('register');
 
-Route::get('/dashboard', 'UserController@index');
+/**
+ * "/register/user"
+ */
+Route::post('/register/user', 'AuthController@storeUser')->name('register.user');
+
+/**
+ * Private routes
+ */
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth'], 'as' => 'admin.'], function () {
+    /**
+     * "/dashboard"
+     */
+    Route::get('/dashboard', 'UserController@index');
+});
 

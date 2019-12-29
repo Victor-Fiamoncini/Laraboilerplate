@@ -52,70 +52,11 @@
                         class="nav-link"
                         href="/dashboard"
                     >
-                        <i class="ni ni-app text-primary"></i> Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a
-                        activeclass="active"
-                        class="nav-link"
-                        href="/cursos"
-                    >
-                        <i class="ni ni-book-bookmark text-orange"></i> Cursos
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a
-                        activeclass="active"
-                        class="nav-link"
-                        href="/artigos"
-                    >
-                        <i class="ni ni-align-center text-info"></i> Artigos
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a
-                        activeclass="active"
-                        class="nav-link"
-                        href="/usuarios"
-                    >
-                        <i class="ni ni-single-02 text-green"></i> Usuários
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a
-                        activeclass="active"
-                        class="nav-link"
-                        href="/tags"
-                    >
-                        <i class="fas fa-hashtag text-yellow"></i> Tags
+                        <i class="ni ni-app text-primary"></i> Clientes
                     </a>
                 </li>
             </ul>
             <hr class="my-3" />
-            <h6 class="navbar-heading text-muted">Links Úteis</h6>
-            <ul class="navbar-nav mb-md-3">
-                <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        href="https://github.com/Victor-Fiamoncini"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <i class="fab fa-github-alt"></i> Github
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        href="#"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <i class="fas fa-file"></i> Site
-                    </a>
-                </li>
-            </ul>
         </div>
     </div>
 </nav>
