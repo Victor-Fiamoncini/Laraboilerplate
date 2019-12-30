@@ -185,41 +185,48 @@
 {{-- Scripts --}}
 @section('scripts')
     <script>
-        $('input[type="file"]').change(function() {
-            $(this)
-                .siblings('.custom-file-label')
-                .addClass('selected')
-                .find('small')
-                .text('File selected')
-                .addClass('text-success')
-                .siblings('i')
-                .addClass('color-success')
-        })
-
-        const passwordStrength = $('div.password-strength').hide()
-        const messageSpan = passwordStrength.find('span')
-
-        function getMessageSpanValue(value) {
-            let messages = {
-                0: messageSpan
-                    .addClass('text-danger')
-                    .text('weak'),
-                6: messageSpan
-                    .addClass('text-yellow')
-                    .removeClass('text-danger')
-                    .text('medium'),
-                9: messageSpan
+        $(function() {
+            $('input[type="file"]').change(function() {
+                $(this)
+                    .siblings('.custom-file-label')
+                    .addClass('selected')
+                    .find('small')
+                    .text('File selected')
                     .addClass('text-success')
-                    .removeClass('text-yellow')
-                    .text('large'),
+                    .siblings('i')
+                    .addClass('color-success')
+            })
+
+            const passwordStrength = $('div.password-strength').hide()
+            const messageSpan = passwordStrength.find('span')
+
+            /**
+             * @description Change the value of the text as well as its class
+             * @param {number} numberOfChars
+             */
+            const getMessageSpanValue = numberOfChars => {
+                let messages = {
+                    0: () => messageSpan
+                        .addClass('text-danger')
+                        .removeClass('text-yellow text-success')
+                        .text('weak'),
+                    6: () => messageSpan
+                        .addClass('text-yellow')
+                        .removeClass('text-danger text-success')
+                        .text('medium'),
+                    10: () => messageSpan
+                        .addClass('text-success')
+                        .removeClass('text-yellow text-danger')
+                        .text('large'),
+                    default: () => {}
+                }
+                return (messages[numberOfChars] || messages.default)()
             }
-            return messages[value] || messages[0]
-        }
 
-
-        $('input[name="password"]').keypress(function() {
-            getMessageSpanValue($(this).val().length)
-            passwordStrength.fadeIn()
+            $('input[name="password"]').bind('keydown', 'change', function() {
+                getMessageSpanValue($(this).val().length)
+                passwordStrength.fadeIn()
+            })
         })
     </script>
 @endsection
