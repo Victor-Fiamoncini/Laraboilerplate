@@ -4,12 +4,12 @@
 {{-- Content --}}
 @section('title', 'Sign in')
 @section('auth-content')
-    <div class="main-content bg-default">
+    <div class="main-content bg-default h-100">
         {{-- Header --}}
-        @header
+        @AuthHeader
             @slot('title', 'Welcome!')
             @slot('content', 'Use this awesome form to sign in for free.')
-        @endheader
+        @endAuthHeader
         {{-- Form --}}
         <div class="container mt--8 pb-5">
             <div class="row justify-content-center">

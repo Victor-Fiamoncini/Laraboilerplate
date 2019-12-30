@@ -4,12 +4,12 @@
 {{-- Content --}}
 @section('title', 'Sign up')
 @section('auth-content')
-    <div class="main-content bg-default">
+    <div class="main-content bg-default h-100">
         {{-- Header --}}
-        @header
+        @AuthHeader
             @slot('title', 'Create a New Account!')
             @slot('content', 'Use this awesome form to create a new account for free.')
-        @endheader
+        @endAuthHeader
         {{-- Form --}}
         <div class="container mt--8 pb-5">
             <div class="row justify-content-center">
@@ -75,6 +75,21 @@
                                         </small>
                                     @endif
                                 </div>
+                                <div class="input-group input-group-alternative mb-3">
+                                    <input
+                                        id="cover"
+                                        class="custom-file-input cursor-pointer"
+                                        type="file"
+                                        name="cover"
+                                    >
+                                    <label
+                                        class="custom-file-label border-0 font-size-17"
+                                        for="cover"
+                                    >
+                                        <i class="fas fa-camera mr-1"></i>
+                                        <small class="color-gray">Profile picture</small>
+                                    </label>
+                                </div>
                                 <div
                                     class="
                                         form-group mb-3
@@ -127,20 +142,11 @@
                                         </small>
                                     @endif
                                 </div>
-                                <div class="input-group input-group-alternative">
-                                    <input
-                                        id="cover"
-                                        class="custom-file-input cursor-pointer"
-                                        type="file"
-                                        name="cover"
-                                    >
-                                    <label
-                                        class="custom-file-label border-0 font-size-17"
-                                        for="cover"
-                                    >
-                                        <i class="fas fa-camera mr-1"></i>
-                                        <small class="color-gray">No file selected</small>
-                                    </label>
+                                <div class="text-muted font-italic password-strength">
+                                    <small>
+                                        password strength:
+                                        <span class=" font-weight-700"></span>
+                                    </small>
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary mt-4">
@@ -188,6 +194,32 @@
                 .addClass('text-success')
                 .siblings('i')
                 .addClass('color-success')
+        })
+
+        const passwordStrength = $('div.password-strength').hide()
+        const messageSpan = passwordStrength.find('span')
+
+        function getMessageSpanValue(value) {
+            let messages = {
+                0: messageSpan
+                    .addClass('text-danger')
+                    .text('weak'),
+                6: messageSpan
+                    .addClass('text-yellow')
+                    .removeClass('text-danger')
+                    .text('medium'),
+                9: messageSpan
+                    .addClass('text-success')
+                    .removeClass('text-yellow')
+                    .text('large'),
+            }
+            return messages[value] || messages[0]
+        }
+
+
+        $('input[name="password"]').keypress(function() {
+            getMessageSpanValue($(this).val().length)
+            passwordStrength.fadeIn()
         })
     </script>
 @endsection

@@ -24,7 +24,6 @@ body,
 
 body {
   overflow-x: hidden;
-  background: #172b4d;
 }
 
 /**
@@ -61,6 +60,10 @@ body {
      object-fit: cover;
   -o-object-position: center;
      object-position: center;
+}
+
+.bg-light-outer {
+  background: #f8f9fe;
 }
 
 .cursor-pointer {

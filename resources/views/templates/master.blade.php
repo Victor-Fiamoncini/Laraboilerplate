@@ -19,7 +19,7 @@
     >
     <title>@yield('title')</title>
 </head>
-<body>
+<body class="bg-default">
     {{-- Root --}}
     @yield('master')
     {{-- Scripts --}}

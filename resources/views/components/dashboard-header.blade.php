@@ -1,4 +1,4 @@
-{{-- Dashbord Header --}}
+{{-- Dashboard Header --}}
 <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
     <div class="container-fluid">
         {{-- Brand --}}
@@ -6,7 +6,7 @@
             class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
             href="{{ route('dashboard.index') }}"
         >
-            Dashboard
+            {{ $title }}
         </a>
         {{-- Search --}}
         <form
@@ -45,10 +45,10 @@
                 >
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
-                            @if(!empty(auth()->user()->url_cover))
+                            @if(!empty(auth()->user()->url_cover_thumb))
                                 <img
                                     class="shadow fit-image"
-                                    src="{{ Auth::user()->url_cover_thumb  }}"
+                                    src="{{ auth()->user()->url_cover_thumb  }}"
                                     alt="{{ auth()->user()->name }}"
                                     title="{{ auth()->user()->name }}"
                                 >

@@ -1,4 +1,4 @@
-{{-- Header --}}
+{{-- Header Auth --}}
 <div class="header bg-gradient-primary py-6 py-lg-6">
     <div class="container">
         <div class="header-body text-center mb-7">

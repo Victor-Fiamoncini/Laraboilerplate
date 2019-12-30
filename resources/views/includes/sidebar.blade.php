@@ -18,7 +18,6 @@
         <a class="text-center" href="{{ route('dashboard.index') }}">
             LaraBoilerPlate
         </a>
-        <hr class="mb-0 mt-3">
         <div class="collapse navbar-collapse" id="mobile-menu">
             <div class="navbar-collapse-header d-md-none">
                 <div class="row">
@@ -57,6 +56,7 @@
                     </a>
                 </li>
             </ul>
+            <hr class="mb-0 mt-3">
         </div>
     </div>
 </nav>

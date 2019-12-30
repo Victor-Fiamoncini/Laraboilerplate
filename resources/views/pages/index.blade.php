@@ -5,8 +5,10 @@
 @section('title', 'Dashboard')
 @section('dashboard-content')
     {{-- Header --}}
-    @include('includes.dashboard-header')
-    <div class="container-fluid bg-light">
+    @DashboardHeader
+        @slot('title', 'Dashboard')
+    @endDashboardHeader
+    <div class="container-fluid">
 
     </div>
 @endsection

@@ -7,6 +7,9 @@
     object-position: center;
 }
 
+.bg-light-outer {
+    background: #f8f9fe;
+}
 
 .cursor-pointer {
     cursor: pointer;
@@ -21,7 +24,6 @@
 .color {
     &-gray {
         color: $input-focus-color;
-
     }
     &-success {
         color: #2dce89;

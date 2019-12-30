@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         /**
          * Components
          */
-        Blade::component('components.header', 'header');
+        Blade::component('components.auth-header', 'AuthHeader');
+        Blade::component('components.dashboard-header', 'DashboardHeader');
     }
 }
