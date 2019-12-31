@@ -28,24 +28,21 @@ Route::get('/register', 'AuthController@showRegisterPage')->name('register');
 Route::post('/register/user', 'AuthController@storeUser')->name('register.user');
 
 /**
- * Github auth routes
+ * Auth providers redirect
  *
- * "/github"
+ * "/auth/{provider}
  */
-Route::prefix('github')->group(function () {
-    /**
-     * "/github/auth"
-     */
-    Route::get('/auth', 'AuthController@redirectToGithubProvider')->name('github-auth');
-
-    /**
-     * "/github/auth/callback"
-     */
-    Route::get('/auth/callback', 'AuthController@handleGithubProviderCallback')->name('github-callback');
-});
+Route::get('/auth/{provider}', 'AuthController@redirectToProvider')->name('auth.provider');
 
 /**
- * Private dashboard routes
+ * Auth providers callback
+ *
+ * "/{provider}/auth/callback"
+ */
+Route::get('/{provider}/auth/callback', 'AuthController@handleProviderCallback')->name('provider.callback');
+
+/**
+ * Protected dashboard routes
  *
  * "/dashboard"
  */

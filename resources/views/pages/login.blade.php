@@ -6,6 +6,7 @@
 @section('auth-content')
     <div class="main-content bg-default h-100">
         {{-- Header --}}
+        @dump(session()->all())
         @AuthHeader
             @slot('title', 'Welcome!')
             @slot('content', 'Use this awesome form to sign in for free.')
@@ -21,7 +22,7 @@
                             </div>
                             <div class="btn-wrapper text-center">
                                 <a
-                                    href="{{ route('github-auth') }}"
+                                    href="{{ route('auth.provider', 'github') }}"
                                     class="btn btn-neutral btn-icon"
                                 >
                                     <span class="btn-inner--icon">
@@ -34,7 +35,7 @@
                                     <span class="btn-inner--text">Github</span>
                                 </a>
                                 <a
-                                    href="#"
+                                    href="{{ route('auth.provider', 'google') }}"
                                     class="btn btn-neutral btn-icon"
                                 >
                                     <span class="btn-inner--icon">

@@ -102,68 +102,87 @@ class AuthController extends Controller
     }
 
     /**
-     * Redirect the user to the GitHub authentication page
+     * Redirect the user to the provider authentication page
      *
+     * @param string $provider
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function redirectToGithubProvider()
+    public function redirectToProvider(string $provider)
     {
         try {
-            return Socialite::driver('github')->redirect();
+            return Socialite::driver($provider)->redirect();
         } catch (Exception $e) {
             return redirect()->route('login')->with([
                 'status' => 'danger',
-                'message' => 'Always went wrong while authenticating, please try again'
+                'message' => 'Something went wrong while authenticating, please try again'
             ]);
         }
     }
 
     /**
-     * Obtain the user information from GitHub
+     * Obtain the user information from provider
      *
+     * @param string $provider
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function handleGithubProviderCallback()
+    public function handleProviderCallback(string $provider)
     {
         try {
-            $githubUser = Socialite::driver('github')->user();
+            $callbackUser = Socialite::driver($provider)->user();
         } catch (Exception $e) {
             return redirect()->route('login')->with([
                 'status' => 'danger',
-                'message' => 'Always went wrong while authenticating, please try again'
+                'message' => 'Something went wrong while authenticating, please try again'
             ]);
         }
 
-        $authUser = $this->findOrCreateUser($githubUser);
+        $authUser = $this->findOrCreateGithubUser($callbackUser, $provider);
 
-        auth()->loginUsingId($authUser->id);
+        if (!empty($authUser)) {
+            auth()->loginUsingId($authUser->id);
+            return redirect()->route('dashboard.index');
+        }
 
-        return redirect()->route('dashboard.index');
+        return redirect()->route('login')->with([
+            'status' => 'danger',
+            'message' => 'Something went wrong while authenticating, please try again'
+        ]);
     }
 
     /**
      * Return user if exists, or create and return if doesn't
      *
-     * @param \Laravel\Socialite\Two\User  $githubUser
-     * @return \App\User
+     * @param string $provider
+     * @param \Laravel\Socialite\Two\User $callbackUser
+     * @return \App\User|null
      */
-    private function findOrCreateUser(SocialiteUser $githubUser): User
+    private function findOrCreateGithubUser(SocialiteUser $callbackUser, string $provider): ?User
     {
-        if ($authUser = User::where('github_id', $githubUser->id)->first()) {
+        if ($authUser = User::where('email', $callbackUser->email)->first()) {
             return $authUser;
         }
 
-        // Send email with current password and link to change it
+        if (!empty($callbackUser->name)) {
+            $rawPassword = uniqid();
 
-        session()->put('githubFirstLogin', true);
+            $newUser = User::create([
+                'name' => $callbackUser->name,
+                'email' => $callbackUser->email,
+                'password' => bcrypt($rawPassword),
+                $provider . '_id' => $callbackUser->id,
+                'cover' => $callbackUser->avatar,
+            ]);
 
-        return User::create([
-            'name' => $githubUser->name,
-            'email' => $githubUser->email,
-            'password' => bcrypt(time()),
-            'github_id' => $githubUser->id,
-            'cover' => $githubUser->avatar
-        ]);
+            // Store the avatar photo and create thumb
+
+            session()->flash('providerFirstLogin', true);
+
+            // Send email with current password and link to change it
+
+            return $newUser;
+        }
+
+        return null;
     }
 
     /**

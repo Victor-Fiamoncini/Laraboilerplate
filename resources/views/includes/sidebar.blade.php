@@ -16,13 +16,18 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="text-center" href="{{ route('dashboard.index') }}">
-            LaraBoilerPlate
+            <img
+                class="img-fluid"
+                src="{{ asset('assets/images/logo-laraboilerplate.png') }}"
+                alt="Laraboilerplate"
+                title="Laraboilerplate"
+            >
         </a>
         <div class="collapse navbar-collapse" id="mobile-menu">
             <div class="navbar-collapse-header d-md-none">
                 <div class="row">
                     <div class="col-6 collapse-brand">
-                       LaraBoilerPlate
+                       Laraboilerplate
                     </div>
                     <div class="col-6 collapse-close">
                         <button
