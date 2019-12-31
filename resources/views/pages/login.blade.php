@@ -6,7 +6,6 @@
 @section('auth-content')
     <div class="main-content bg-default h-100">
         {{-- Header --}}
-        @dump(session()->all())
         @AuthHeader
             @slot('title', 'Welcome!')
             @slot('content', 'Use this awesome form to sign in for free.')
