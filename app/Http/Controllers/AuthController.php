@@ -6,9 +6,9 @@ use App\User;
 use App\Http\Requests\UserRegister as UserRegisterRequest;
 use App\Http\Requests\UserLogin as UserLoginRequest;
 use App\Support\Resizer;
-use Exception;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\User as SocialiteUser;
+use Exception;
 
 class AuthController extends Controller
 {
@@ -83,6 +83,7 @@ class AuthController extends Controller
         }
 
         $this->updateLoginInfos($userLoginRequest->getClientIp());
+
         return redirect()->route('dashboard.index')->with([
             'status' => 'success',
             'message' => 'Welcome ' . auth()->user()->name . '!'
@@ -103,11 +104,18 @@ class AuthController extends Controller
     /**
      * Redirect the user to the GitHub authentication page
      *
-     * @return \Illuminate\Http\Response;
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function redirectToGithubProvider()
     {
-        return Socialite::driver('github')->redirect();
+        try {
+            return Socialite::driver('github')->redirect();
+        } catch (Exception $e) {
+            return redirect()->route('login')->with([
+                'status' => 'danger',
+                'message' => 'Always went wrong while authenticating, please try again'
+            ]);
+        }
     }
 
     /**
@@ -120,14 +128,17 @@ class AuthController extends Controller
         try {
             $githubUser = Socialite::driver('github')->user();
         } catch (Exception $e) {
-            return redirect()->route('github-auth');
+            return redirect()->route('login')->with([
+                'status' => 'danger',
+                'message' => 'Always went wrong while authenticating, please try again'
+            ]);
         }
 
         $authUser = $this->findOrCreateUser($githubUser);
 
         auth()->loginUsingId($authUser->id);
 
-        return redirect()->route('login');
+        return redirect()->route('dashboard.index');
     }
 
     /**
@@ -142,9 +153,14 @@ class AuthController extends Controller
             return $authUser;
         }
 
+        // Send email with current password and link to change it
+
+        session()->put('githubFirstLogin', true);
+
         return User::create([
             'name' => $githubUser->name,
             'email' => $githubUser->email,
+            'password' => bcrypt(time()),
             'github_id' => $githubUser->id,
             'cover' => $githubUser->avatar
         ]);

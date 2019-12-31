@@ -9,6 +9,22 @@
         @slot('title', 'Dashboard')
     @endDashboardHeader
     <div class="container-fluid">
-
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        @dump(session()->all())
     </div>
 @endsection
