@@ -23,41 +23,37 @@
 
 .color {
     &-gray {
-        color: $input-focus-color;
+        color: $input-default-color;
+        &:before {
+            color: $input-default-color;
+        }
     }
     &-success {
-        color: #2dce89;
+        color: $alert-success-color;
         &:before {
-            color: #2dce89;
+            color: $alert-success-color;
         }
     }
 }
 
 .placeholder-error {
     ::placeholder {
-        color: #f5365c;
+        color:  $alert-danger-color;
         opacity: 1;
     }
     :-ms-input-placeholder {
-        color: #f5365c;
+        color:  $alert-danger-color;
     }
     ::-ms-input-placeholder {
-        color: #f5365c;
+        color:  $alert-danger-color;
     }
     :-moz-placeholder {
-        color: #f5365c;
+        color:  $alert-danger-color;
     }
     ::-webkit-input-placeholder {
-        color: #f5365c;
+        color:  $alert-danger-color;
     }
     i {
-        color: #f5365c !important;
-    }
-}
-
-input[type="file"] ~ label {
-    &:after {
-        padding-top: 12px;
-        font-size: 0.938rem;
+        color:  $alert-danger-color !important;
     }
 }

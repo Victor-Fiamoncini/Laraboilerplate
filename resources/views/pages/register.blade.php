@@ -86,7 +86,7 @@
                                         class="custom-file-label border-0 font-size-17"
                                         for="cover"
                                     >
-                                        <i class="fas fa-camera mr-1"></i>
+                                        <i class="fas fa-camera mr-1 color-gray"></i>
                                         <small class="color-gray">Profile picture</small>
                                     </label>
                                 </div>

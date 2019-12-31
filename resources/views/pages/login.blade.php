@@ -20,17 +20,23 @@
                                 <small>Sign in with</small>
                             </div>
                             <div class="btn-wrapper text-center">
-                                <a href="#" class="btn btn-neutral btn-icon">
+                                <a
+                                    href="{{ route('github-auth') }}"
+                                    class="btn btn-neutral btn-icon"
+                                >
                                     <span class="btn-inner--icon">
                                         <img
-                                            src="{{ asset('assets/images/facebook.svg') }}"
-                                            alt="Facebook"
-                                            title="Facebook"
+                                            src="{{ asset('assets/images/github.svg') }}"
+                                            alt="Github"
+                                            title="Github"
                                         >
                                     </span>
-                                    <span class="btn-inner--text">Facebook</span>
+                                    <span class="btn-inner--text">Github</span>
                                 </a>
-                                <a href="#" class="btn btn-neutral btn-icon">
+                                <a
+                                    href="#"
+                                    class="btn btn-neutral btn-icon"
+                                >
                                     <span class="btn-inner--icon">
                                         <img
                                             src="{{ asset('assets/images/google.svg') }}"

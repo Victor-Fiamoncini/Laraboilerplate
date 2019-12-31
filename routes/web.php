@@ -28,10 +28,28 @@ Route::get('/register', 'AuthController@showRegisterPage')->name('register');
 Route::post('/register/user', 'AuthController@storeUser')->name('register.user');
 
 /**
- * Private routes
+ * Github auth routes
+ *
+ * "/github"
+ */
+Route::prefix('github')->group(function () {
+    /**
+     * "/github/auth"
+     */
+    Route::get('/auth', 'AuthController@redirectToGithubProvider')->name('github-auth');
+
+    /**
+     * "/github/auth/callback"
+     */
+    Route::get('/auth/callback', 'AuthController@handleGithubProviderCallback')->name('github-callback');
+});
+
+/**
+ * Private dashboard routes
+ *
+ * "/dashboard"
  */
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth'], 'as' => 'dashboard.'], function () {
-
     /**
      * "/dashboard"
      */
@@ -46,6 +64,5 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth'], 'as' => 'dashbo
      * "/dashboard/user/update"
      */
     Route::put('/user/{user}', 'UserController@update')->name('user.update');
-
 });
 

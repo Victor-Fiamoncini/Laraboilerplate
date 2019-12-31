@@ -75,7 +75,10 @@ body {
 }
 
 .color-gray {
-  color: #8898aa;
+  color: #adb5bd;
+}
+.color-gray:before {
+  color: #adb5bd;
 }
 .color-success {
   color: #2dce89;
@@ -124,6 +127,10 @@ body {
   color: #f5365c !important;
 }
 
+/**
+ * Register page
+ * ===============================================================================
+ */
 input[type=file] ~ label:after {
   padding-top: 12px;
   font-size: 0.938rem;

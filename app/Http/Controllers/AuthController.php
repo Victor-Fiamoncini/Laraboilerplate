@@ -6,6 +6,8 @@ use App\User;
 use App\Http\Requests\UserRegister as UserRegisterRequest;
 use App\Http\Requests\UserLogin as UserLoginRequest;
 use App\Support\Resizer;
+use Exception;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -95,6 +97,56 @@ class AuthController extends Controller
     {
         auth()->logout();
         return redirect()->route('login');
+    }
+
+    /**
+     * Redirect the user to the GitHub authentication page
+     *
+     * @return \Illuminate\Http\Response;
+     */
+    public function redirectToGithubProvider()
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    /**
+     * Obtain the user information from GitHub
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function handleProviderCallback()
+    {
+        try {
+            $user = Socialite::driver('github')->user();
+        } catch (Exception $e) {
+            return redirect()->route('github-auth');
+        }
+
+        $authUser = $this->findOrCreateUser($user);
+
+        auth()->login($authUser, true);
+
+        return redirect()->route('login');
+    }
+
+    /**
+     * Return user if exists; create and return if doesn't
+     *
+     * @param $githubUser
+     * @return User
+     */
+    private function findOrCreateUser($githubUser)
+    {
+        if ($authUser = User::where('github_id', $githubUser->id)->first()) {
+            return $authUser;
+        }
+
+        return User::create([
+            'name' => $githubUser->name,
+            'email' => $githubUser->email,
+            'github_id' => $githubUser->id,
+            'cover' => $githubUser->avatar
+        ]);
     }
 
     /**

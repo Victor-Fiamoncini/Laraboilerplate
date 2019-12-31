@@ -23,7 +23,7 @@ class User extends Authenticatable
      *
      * @var string
      */
-    public $tableName = 'users';
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -31,7 +31,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'cover', 'cover_thumb',
+        'name', 'email', 'password', 'cover', 'cover_thumb', 'github_id',
     ];
 
     /**

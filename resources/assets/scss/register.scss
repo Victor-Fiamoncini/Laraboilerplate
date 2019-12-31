@@ -1,0 +1,10 @@
+/**
+ * Register page
+ * ===============================================================================
+ */
+input[type="file"] ~ label {
+    &:after {
+        padding-top: 12px;
+        font-size: 0.938rem;
+    }
+}

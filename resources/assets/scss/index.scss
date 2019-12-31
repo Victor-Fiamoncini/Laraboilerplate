@@ -8,7 +8,11 @@ $dt: 1024px;
 
 $main-color: #5e72e4;
 $main-darken-color: #172b4d;
+$input-default-color: #adb5bd;
 $input-focus-color: #8898aa;
+
+$alert-success-color: #2dce89;
+$alert-danger-color: #f5365c;
 
 /**
  * Resets
@@ -60,4 +64,5 @@ body {
  * ===============================================================================
  */
 @import 'classes';
+@import 'register';
 @import 'dashboard';
