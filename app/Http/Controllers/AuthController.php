@@ -8,6 +8,7 @@ use App\Http\Requests\UserLogin as UserLoginRequest;
 use App\Support\Resizer;
 use Exception;
 use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\User as SocialiteUser;
 
 class AuthController extends Controller
 {
@@ -114,28 +115,28 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function handleProviderCallback()
+    public function handleGithubProviderCallback()
     {
         try {
-            $user = Socialite::driver('github')->user();
+            $githubUser = Socialite::driver('github')->user();
         } catch (Exception $e) {
             return redirect()->route('github-auth');
         }
 
-        $authUser = $this->findOrCreateUser($user);
+        $authUser = $this->findOrCreateUser($githubUser);
 
-        auth()->login($authUser, true);
+        auth()->loginUsingId($authUser->id);
 
         return redirect()->route('login');
     }
 
     /**
-     * Return user if exists; create and return if doesn't
+     * Return user if exists, or create and return if doesn't
      *
-     * @param $githubUser
-     * @return User
+     * @param \Laravel\Socialite\Two\User  $githubUser
+     * @return \App\User
      */
-    private function findOrCreateUser($githubUser)
+    private function findOrCreateUser(SocialiteUser $githubUser): User
     {
         if ($authUser = User::where('github_id', $githubUser->id)->first()) {
             return $authUser;
