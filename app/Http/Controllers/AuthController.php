@@ -6,9 +6,11 @@ use App\User;
 use App\Http\Requests\UserRegister as UserRegisterRequest;
 use App\Http\Requests\UserLogin as UserLoginRequest;
 use App\Support\Resizer;
+use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\User as SocialiteUser;
 use Exception;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -136,7 +138,7 @@ class AuthController extends Controller
             ]);
         }
 
-        $authUser = $this->findOrCreateGithubUser($callbackUser, $provider);
+        $authUser = $this->findOrCreateCallbackUser($callbackUser, $provider);
 
         if (!empty($authUser)) {
             auth()->loginUsingId($authUser->id);
@@ -156,7 +158,7 @@ class AuthController extends Controller
      * @param \Laravel\Socialite\Two\User $callbackUser
      * @return \App\User|null
      */
-    private function findOrCreateGithubUser(SocialiteUser $callbackUser, string $provider): ?User
+    private function findOrCreateCallbackUser(SocialiteUser $callbackUser, string $provider): ?User
     {
         if ($authUser = User::where('email', $callbackUser->email)->first()) {
             return $authUser;
@@ -183,6 +185,35 @@ class AuthController extends Controller
         }
 
         return null;
+    }
+
+    /**
+     * Return forgot-password view
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showForgotPasswordPage()
+    {
+        return view('pages.forgot-password');
+    }
+
+    /**
+     * Update the specified user in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function sendResetPasswordMail(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|max:255|exists:users,email'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        $user = User::whereEmail($request->email)->first();
     }
 
     /**

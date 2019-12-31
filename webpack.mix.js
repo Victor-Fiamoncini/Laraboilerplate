@@ -12,6 +12,13 @@ mix
         'public/assets/css/style.css'
     )
     /**
+     * JS
+     */
+    .js(
+        'resources/assets/js/scripts.js',
+        'public/assets/js/scripts.js'
+    )
+    /**
      * Directories
      */
     .copyDirectory(

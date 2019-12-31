@@ -2,13 +2,13 @@
 @extends('templates.auth-master')
 
 {{-- Content --}}
-@section('title', 'Sign up')
+@section('title', 'Forgot Password')
 @section('auth-content')
     <div class="main-content bg-default h-100">
         {{-- Header --}}
         @AuthHeader
-            @slot('title', 'Create a New Account!')
-            @slot('content', 'Use this awesome form to create a new account for free.')
+            @slot('title', 'Forgot your Password?')
+            @slot('content', 'Use this awesome form to send a new authorization to change your credential.')
         @endAuthHeader
         {{-- Form --}}
         <div class="container mt--8 pb-5">
@@ -18,37 +18,10 @@
                         <div class="card-body px-lg-5 py-lg-5">
                             <form
                                 role="form"
-                                action="{{ route('register.user') }}"
+                                action="{{ route('password.mail') }}"
                                 method="POST"
-                                enctype="multipart/form-data"
                             >
                                 @csrf
-                                <div
-                                    class="
-                                        form-group mb-3
-                                        {{ $errors->has('name') ? 'placeholder-error ' : '' }}
-                                    "
-                                >
-                                    <div class="input-group input-group-alternative">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-user"></i>
-                                            </span>
-                                        </div>
-                                        <input
-                                            class="form-control"
-                                            placeholder="Name"
-                                            type="text"
-                                            name="name"
-                                            value="{{ old('name') }}"
-                                        >
-                                    </div>
-                                    @if ($errors->has('name'))
-                                        <small class="form-text text-danger">
-                                            {{ $errors->first('name') }}
-                                        </small>
-                                    @endif
-                                </div>
                                 <div
                                     class="
                                         form-group mb-3
@@ -74,21 +47,6 @@
                                             {{ $errors->first('email') }}
                                         </small>
                                     @endif
-                                </div>
-                                <div class="input-group input-group-alternative mb-3">
-                                    <input
-                                        id="cover"
-                                        class="custom-file-input cursor-pointer"
-                                        type="file"
-                                        name="cover"
-                                    >
-                                    <label
-                                        class="custom-file-label border-0 font-size-17"
-                                        for="cover"
-                                    >
-                                        <i class="fas fa-camera mr-1 color-gray"></i>
-                                        <small class="color-gray">Profile picture</small>
-                                    </label>
                                 </div>
                                 <div
                                     class="
@@ -150,7 +108,7 @@
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary mt-4">
-                                        Sign up
+                                        Send
                                     </button>
                                 </div>
                             </form>
@@ -158,13 +116,13 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col-6">
-                            <a href="{{ route('password') }}" class="text-light">
-                                <small>Forgot password?</small>
+                            <a href="{{ route('login') }}" class="text-light">
+                                <small>Sign in</small>
                             </a>
                         </div>
                         <div class="col-6 text-right">
-                            <a href="{{ route('login') }}" class="text-light">
-                                <small>Sign in</small>
+                            <a href="{{ route('register') }}" class="text-light">
+                                <small>Sign up</small>
                             </a>
                         </div>
                     </div>
@@ -179,19 +137,4 @@
 {{-- Scripts --}}
 @section('scripts')
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
-    <script>
-        $(function() {
-            $('input[type="file"]').change(function() {
-                $(this)
-                    .siblings('.custom-file-label')
-                    .addClass('selected')
-                    .find('small')
-                    .text('File selected')
-                    .addClass('text-success')
-                    .siblings('i')
-                    .addClass('color-success')
-            })
-
-        })
-    </script>
 @endsection

@@ -28,6 +28,31 @@ Route::get('/register', 'AuthController@showRegisterPage')->name('register');
 Route::post('/register/user', 'AuthController@storeUser')->name('register.user');
 
 /**
+ * Reset password routes
+ */
+Route::prefix('password')->group(function () {
+    /**
+     * "/password"
+     */
+    Route::get('/', 'AuthController@showForgotPasswordPage')->name('password');
+
+    /**
+     * "/password/reset/mail"
+     */
+    Route::post('/reset/mail', 'AuthController@sendResetPasswordMail')->name('password.mail');
+
+    /**
+     * "password/reset/{token}"
+     */
+    Route::get('/reset/{token}', 'AuthController@showResetPasswordForm')->name('password.form');
+
+    /**
+     * "password/reset"
+     */
+    Route::post('/reset', 'AuthController@reset')->name('password.reset.do');
+});
+
+/**
  * Auth providers redirect
  *
  * "/auth/{provider}
