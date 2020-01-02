@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -14,10 +15,7 @@ class UserController extends Controller
      */
     public function showProfilePage()
     {
-        return view('pages.profile')->with([
-            'status' => 'success',
-            'message' => auth()->user()->name . ', you were successfully registered!'
-        ]);
+        return view('pages.profile')->with('user', Auth::user());
     }
 
     /**

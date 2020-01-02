@@ -84,7 +84,9 @@ class AuthController extends Controller
      */
     public function login(UserLoginRequest $userLoginRequest)
     {
-        if (!Auth::attempt($userLoginRequest->only(['email', 'password']))) {
+        $rememberMe = $userLoginRequest->has('remeber_me') ? true : false;
+
+        if (!Auth::attempt($userLoginRequest->only(['email', 'password']), $rememberMe)) {
             return redirect()->back()->withInput()->withErrors([
                 'credentials' => 'Invalid credentials entered, please try again',
             ]);

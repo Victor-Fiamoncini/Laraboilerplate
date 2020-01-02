@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
@@ -31,7 +30,26 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'cover', 'cover_thumb', 'github_id', 'google_id'
+        'name',
+        'email',
+        'password',
+        'cover',
+        'cover_thumb',
+        'github_id',
+        'google_id',
+        'description',
+        'date_of_birth',
+        'age',
+        'zipcode',
+        'neighborhood',
+        'street',
+        'complement',
+        'number',
+        'city',
+        'state',
+        'telephone',
+        'cell',
+        'occupation',
     ];
 
     /**

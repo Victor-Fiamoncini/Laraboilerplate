@@ -9,12 +9,12 @@
         >
             {{ $title }}
         </a>
-        {{-- User --}}
+        {{-- User Menu --}}
         <ul class="navbar-nav align-items-center d-none d-md-flex">
             <li class="nav-item dropdown">
                 <a
                     class="nav-link pr-0"
-                    href="#"
+                    href="!#"
                     role="button"
                     data-toggle="dropdown"
                     aria-haspopup="true"
@@ -23,10 +23,10 @@
                 >
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
-                            @if (!empty(Auth::user()->url_cover_thumb))
+                            @if (!empty(Auth::user()->cover))
                                 <img
                                     class="shadow fit-image"
-                                    src="{{ Auth::user()->url_cover_thumb }}"
+                                    src="{{ Auth::user()->cover }}"
                                     alt="{{ Auth::user()->name }}"
                                     title="{{ Auth::user()->name }}"
                                 >
@@ -47,15 +47,12 @@
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-                    <div class=" dropdown-header noti-title">
-                        <h6 class="text-overflow m-0">Welcome!</h6>
-                    </div>
                     <a
                         class="dropdown-item"
                         href="{{ route('dashboard.user.edit', Auth::user()->id) }}"
                         rel="noopener noreferrer"
                     >
-                        <i class="ni ni-single-02"></i>
+                        <i class="ni ni-single-02 text-yellow"></i>
                         <span>Profile</span>
                     </a>
                     <div class="dropdown-divider"></div>
@@ -64,7 +61,7 @@
                         href="{{ route('logout') }}"
                         rel="noopener noreferrer"
                     >
-                        <i class="ni ni-user-run"></i>
+                        <i class="ni ni-user-run text-dark"></i>
                         <span>Logout</span>
                     </a>
                 </div>

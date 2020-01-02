@@ -1,6 +1,6 @@
 {{-- Sidebar --}}
 <nav
-    class="navbar navbar-vertical navbar-light fixed-left navbar-expand-md bg-white"
+    class="navbar navbar-vertical navbar-light fixed-left navbar-expand-md bg-white shadow"
     id="sidenav-main"
 >
     <div class="container-fluid">

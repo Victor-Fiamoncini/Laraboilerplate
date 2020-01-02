@@ -130,11 +130,11 @@
                                 <div class="custom-control custom-control-alternative custom-checkbox">
                                     <input
                                         class="custom-control-input"
-                                        id="rememberCheck"
+                                        id="remember_me"
                                         type="checkbox"
-                                        name="remeber"
+                                        name="remeber_me"
                                     >
-                                    <label class="custom-control-label" for="rememberCheck">
+                                    <label class="custom-control-label" for="remember_me">
                                         <span class="text-muted">Remember me</span>
                                     </label>
                                 </div>
