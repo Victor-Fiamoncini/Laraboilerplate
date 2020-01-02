@@ -6,6 +6,7 @@
     <meta name="author" content="Victor B. Fiamoncini">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- CSS --}}
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/nucleo/css/nucleo.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}">

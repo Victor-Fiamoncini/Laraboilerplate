@@ -7,13 +7,13 @@
     <div class="main-content bg-default h-100">
         {{-- Header --}}
         @AuthHeader
-            @slot('title', 'Forgot your Password?')
-            @slot('content', 'Use this awesome form to send a new authorization to change your credential.')
+            @slot('title', 'Reset your Password')
+            @slot('content', 'Use this awesome form to update your credential.')
         @endAuthHeader
         {{-- Form --}}
         <div class="container mt--8 pb-5">
             <div class="row justify-content-center">
-                <div class="col-lg-5 col-md-7">
+                <div class="col-lg-6 col-md-7">
                     <div class="card bg-secondary shadow border-0">
                         <div class="card-body px-lg-5 py-lg-5">
                             <form

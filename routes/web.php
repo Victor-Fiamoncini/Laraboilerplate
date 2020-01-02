@@ -49,7 +49,7 @@ Route::prefix('password')->group(function () {
     /**
      * "password/reset"
      */
-    Route::post('/reset', 'AuthController@reset')->name('password.reset.do');
+    Route::post('/reset', 'AuthController@resetPassword')->name('password.reset.do');
 });
 
 /**

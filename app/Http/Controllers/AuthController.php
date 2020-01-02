@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Http\Requests\UserRegister as UserRegisterRequest;
 use App\Http\Requests\UserLogin as UserLoginRequest;
+use App\Mail\ResetPassword;
 use App\Support\Resizer;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\User as SocialiteUser;
 use Exception;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -188,7 +190,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Return forgot-password view
+     * Return forgot password view
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -198,10 +200,10 @@ class AuthController extends Controller
     }
 
     /**
-     * Update the specified user in storage.
+     * Send a email with reset password access token
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function sendResetPasswordMail(Request $request)
     {
@@ -214,6 +216,48 @@ class AuthController extends Controller
         }
 
         $user = User::whereEmail($request->email)->first();
+
+        // Mail::to($request->email)->send(new ResetPassword($user, uniqid()));
+
+        return view('mail.reset-password')->with([
+            'user' => $user,
+            'token' => uniqid()
+        ]);
+
+        return redirect()->route('login')->with([
+            'status' => 'success',
+            'message' => 'An email has been sent to you with the credential to modify your password.'
+        ]);
+    }
+
+    /**
+     * Return reset password view
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showResetPasswordForm()
+    {
+        return view('pages.reset-password');
+    }
+
+    /**
+     * Reset user password
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function resetPassword(Request $request)
+    {
+    }
+
+    /**
+     * Update the first random user password
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePassword(Request $request)
+    {
     }
 
     /**

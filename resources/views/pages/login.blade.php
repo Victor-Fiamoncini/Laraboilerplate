@@ -10,10 +10,12 @@
             @slot('title', 'Welcome!')
             @slot('content', 'Use this awesome form to sign in for free.')
         @endAuthHeader
-        {{-- Form --}}
+        {{-- Login Form --}}
         <div class="container mt--8 pb-5">
             <div class="row justify-content-center">
-                <div class="col-lg-5 col-md-7">
+                <div class="col-lg-6 col-md-7">
+                    {{-- Messages --}}
+                    @include('includes.messages')
                     <div class="card bg-secondary shadow border-0">
                         <div class="card-header bg-transparent pb-5">
                             <div class="text-muted text-center mt-2 mb-3">
