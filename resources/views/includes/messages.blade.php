@@ -1,4 +1,4 @@
-{{-- Messages --}}
+{{-- Flash Messages --}}
 @if (session('status') && session('message'))
     <div
         class="alert alert-{{ session('status') }} alert-dismissible fade show"

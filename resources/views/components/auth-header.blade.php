@@ -2,7 +2,7 @@
 <div class="header bg-gradient-primary py-4 py-lg-4">
     <div class="container">
         <div class="header-body text-center mb-7">
-            <a href="{{ route('login') }}">
+            <a href="{{ route('login') }}" rel="noopener noreferrer">
                 <img
                     class="img-fluid mb-4"
                     src="{{ asset('assets/images/logo-laraboilerplate-white.png') }}"

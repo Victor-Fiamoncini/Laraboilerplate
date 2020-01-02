@@ -8,6 +8,7 @@
                     href="https://github.com/Victor-Fiamoncini"
                     class="font-weight-bold ml-1"
                     target="_blank"
+                    rel="noopener noreferrer"
                 >
                     Victor B. Fiamoncini
                 </a>

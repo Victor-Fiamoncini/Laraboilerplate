@@ -5,6 +5,7 @@
         <a
             class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
             href="{{ route('dashboard.profile') }}"
+            rel="noopener noreferrer"
         >
             {{ $title }}
         </a>
@@ -18,6 +19,7 @@
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
+                    rel="noopener noreferrer"
                 >
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
@@ -51,6 +53,7 @@
                     <a
                         class="dropdown-item"
                         href="{{ route('dashboard.user.edit', Auth::user()->id) }}"
+                        rel="noopener noreferrer"
                     >
                         <i class="ni ni-single-02"></i>
                         <span>Profile</span>
@@ -59,6 +62,7 @@
                     <a
                         class="dropdown-item"
                         href="{{ route('logout') }}"
+                        rel="noopener noreferrer"
                     >
                         <i class="ni ni-user-run"></i>
                         <span>Logout</span>

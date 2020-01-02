@@ -25,6 +25,7 @@
                                 <a
                                     href="{{ route('auth.provider', 'github') }}"
                                     class="btn btn-neutral btn-icon"
+                                    rel="noopener noreferrer"
                                 >
                                     <span class="btn-inner--icon">
                                         <img
@@ -38,6 +39,7 @@
                                 <a
                                     href="{{ route('auth.provider', 'google') }}"
                                     class="btn btn-neutral btn-icon"
+                                    rel="noopener noreferrer"
                                 >
                                     <span class="btn-inner--icon">
                                         <img
@@ -146,12 +148,20 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col-6">
-                            <a href="{{ route('password.forgot') }}" class="text-light">
+                            <a
+                                href="{{ route('password.forgot') }}"
+                                class="text-light"
+                                rel="noopener noreferrer"
+                            >
                                 <small>Forgot password?</small>
                             </a>
                         </div>
                         <div class="col-6 text-right">
-                            <a href="{{ route('register') }}" class="text-light">
+                            <a
+                                href="{{ route('register') }}"
+                                class="text-light"
+                                rel="noopener noreferrer"
+                            >
                                 <small>Sign up</small>
                             </a>
                         </div>

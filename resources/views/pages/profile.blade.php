@@ -17,7 +17,7 @@
                     <p class="text-white mt-0 mb-5">
                         This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks
                     </p>
-                    <a href="#!" class="btn btn-info">Edit profile</a>
+                    <a href="#!" class="btn btn-info" rel="noopener noreferrer">Edit profile</a>
                 </div>
             </div>
         </div>

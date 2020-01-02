@@ -158,12 +158,20 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col-6">
-                            <a href="{{ route('password.forgot') }}" class="text-light">
+                            <a
+                                href="{{ route('password.forgot') }}"
+                                class="text-light"
+                                rel="noopener noreferrer"
+                            >
                                 <small>Forgot password?</small>
                             </a>
                         </div>
                         <div class="col-6 text-right">
-                            <a href="{{ route('login') }}" class="text-light">
+                            <a
+                                href="{{ route('login') }}"
+                                class="text-light"
+                                rel="noopener noreferrer"
+                            >
                                 <small>Sign in</small>
                             </a>
                         </div>

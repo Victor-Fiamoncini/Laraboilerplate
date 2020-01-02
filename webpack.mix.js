@@ -33,4 +33,7 @@ mix
         'resources/assets/images',
         'public/assets/images'
     )
+    /**
+     * Options
+     */
     .options({ processCssUrls: false })

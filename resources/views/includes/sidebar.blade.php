@@ -15,7 +15,11 @@
         >
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="text-center" href="{{ route('dashboard.profile') }}">
+        <a
+            class="text-center"
+            href="{{ route('dashboard.profile') }}"
+            rel="noopener noreferrer"
+        >
             <img
                 class="img-fluid"
                 src="{{ asset('assets/images/logo-laraboilerplate.png') }}"
@@ -47,16 +51,30 @@
             </div>
             {{-- Menu --}}
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-item {{ isActive('dashboard.profile') }}">
                     <a
-                        class="nav-link pt-0 mb-2"
+                        class="nav-link {{ isActive('dashboard.profile') }}"
                         href="{{ route('dashboard.user.edit', Auth::user()->id) }}"
+                        rel="noopener noreferrer"
                     >
                         <i class="ni ni-single-02 text-yellow"></i> Profile
                     </a>
                 </li>
             </ul>
-            <hr class="mb-0 mt-3">
+            <hr class="mb-0 my-3">
+            <h6 class="navbar-heading text-muted">Util Links</h6>
+            <ul class="navbar-nav mb-md-3">
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="https://github.com/Victor-Fiamoncini"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="fab fa-github-alt"></i> Github
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
