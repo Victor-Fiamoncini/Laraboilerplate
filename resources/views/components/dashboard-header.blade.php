@@ -49,7 +49,7 @@
                 <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
                     <a
                         class="dropdown-item"
-                        href="{{ route('dashboard.user.edit', Auth::user()->id) }}"
+                        href="{{ route('dashboard.profile', Auth::user()->id) }}"
                         rel="noopener noreferrer"
                     >
                         <i class="ni ni-single-02 text-yellow"></i>

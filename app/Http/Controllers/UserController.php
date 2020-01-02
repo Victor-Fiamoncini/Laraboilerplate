@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\UserUpdate as UserUpdateRequest;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -19,43 +19,15 @@ class UserController extends Controller
     }
 
     /**
-     * Display a listing of the user.
+     * Update the specified user in storage
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-    }
-
-    /**
-     * Show the form for editing the specified user.
-     *
+     * @param App\Http\Requests\UserUpdate $userUpdateRequest
      * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function update(UserUpdateRequest $userUpdateRequest, User $user)
     {
-        return view('pages.profile')->with('user', $user);
+        dd($userUpdateRequest->all());
     }
 
-    /**
-     * Update the specified user in storage.
-     *
-     * @param \Illuminate\Http\Request  $request
-     * @param \App\User $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-    }
-
-    /**
-     * Remove the specified user from storage.
-     *
-     * @param \App\User
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-    }
 }

@@ -54,10 +54,28 @@
                 <li class="nav-item {{ isActive('dashboard.profile') }}">
                     <a
                         class="nav-link {{ isActive('dashboard.profile') }}"
-                        href="{{ route('dashboard.user.edit', Auth::user()->id) }}"
+                        href="{{ route('dashboard.profile', Auth::user()->id) }}"
                         rel="noopener noreferrer"
                     >
                         <i class="ni ni-single-02 text-yellow"></i> Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href=""
+                        rel="noopener noreferrer"
+                    >
+                        <i class="fas fa-building text-info"></i> Companies
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href=""
+                        rel="noopener noreferrer"
+                    >
+                        <i class="fas fa-rocket text-orange"></i> About
                     </a>
                 </li>
             </ul>

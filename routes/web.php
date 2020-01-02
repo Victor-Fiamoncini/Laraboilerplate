@@ -78,13 +78,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth'], 'as' => 'dashbo
     Route::get('/', 'UserController@showProfilePage')->name('profile');
 
     /**
-     * "/dashboard/user/{user}/edit"
-     */
-    Route::get('/user/{user}/edit', 'UserController@edit')->name('user.edit');
-
-    /**
      * "/dashboard/user/update"
      */
-    Route::put('/user/{user}', 'UserController@update')->name('user.update');
+    Route::put('/{user}/update', 'UserController@update')->name('user.update');
 });
 

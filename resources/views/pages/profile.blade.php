@@ -8,7 +8,7 @@
     @DashboardHeader
         @slot('title', 'Profile')
     @endDashboardHeader
-    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center bg-gradient-default">
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center bg-gradient-warning h-25">
         <span class="mask opacity-8"></span>
         <div class="container-fluid d-flex align-items-center">
             <div class="row">
@@ -49,7 +49,9 @@
                         <div class="text-center">
                             <h3>{{ $user->name }}</h3>
                             <div class="h5 font-weight-300">
-                                {{ $user->city }}, {{ $user->state }}
+                                @empty(!$user->city && !$user->state)
+                                    {{ $user->city }}, {{ $user->state }}
+                                @endempty
                             </div>
                             <div class="h5 mt-4">{{ $user->occupation }}</div>
                         </div>
@@ -68,11 +70,12 @@
                     <div class="card-body">
                         <form
                             role="form"
-                            action=""
+                            action="{{ route('dashboard.user.update', $user->id) }}"
                             method="POST"
                         >
                             @csrf
                             @method('PUT')
+                            <input type="hidden" name="id" value="{{ $user->id }}">
                             <h6 class="heading-small text-muted mb-4">User information</h6>
                             <div>
                                 <div class="row">
@@ -89,6 +92,11 @@
                                                 name="name"
                                                 value="{{ $user->name ?? old('name') }}"
                                             >
+                                            @if ($errors->has('name'))
+                                                <small class="form-text text-danger">
+                                                    {{ $errors->first('name') }}
+                                                </small>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -104,6 +112,11 @@
                                                 name="email"
                                                 value="{{ $user->email ?? old('email') }}"
                                             >
+                                            @if ($errors->has('email'))
+                                                <small class="form-text text-danger">
+                                                    {{ $errors->first('email') }}
+                                                </small>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -119,8 +132,12 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Password"
                                                 name="password"
-                                                value=""
                                             >
+                                            @if ($errors->has('password'))
+                                                <small class="form-text text-danger">
+                                                    {{ $errors->first('password') }}
+                                                </small>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -134,8 +151,12 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Password confirmation"
                                                 name="password_confirmation"
-                                                value=""
                                             >
+                                            @if ($errors->has('password_confirmation'))
+                                                <small class="form-text text-danger">
+                                                    {{ $errors->first('password_confirmation') }}
+                                                </small>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -153,6 +174,11 @@
                                                 name="date_of_birth"
                                                 value="{{ $user->date_of_birth ?? old('date_of_birth') }}"
                                             >
+                                            @if ($errors->has('date_of_birth'))
+                                                <small class="form-text text-danger">
+                                                    {{ $errors->first('date_of_birth') }}
+                                                </small>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -174,6 +200,11 @@
                                                 name="zipcode"
                                                 value="{{ $user->zipcode ?? old('zipcode') }}"
                                             >
+                                            <small class="form-text text-danger">
+                                                @if ($errors->has('zipcode'))
+                                                    {{ $errors->first('zipcode') }}
+                                                @endif
+                                            </small>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -189,6 +220,11 @@
                                                 name="street"
                                                 value="{{ $user->street ?? old('street') }}"
                                             >
+                                            @if ($errors->has('street'))
+                                                <small class="form-text text-danger">
+                                                    {{ $errors->first('street') }}
+                                                </small>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -206,6 +242,11 @@
                                                 name="number"
                                                 value="{{ $user->number ?? old('number') }}"
                                             >
+                                            @if ($errors->has('number'))
+                                                <small class="form-text text-danger">
+                                                    {{ $errors->first('number') }}
+                                                </small>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-lg-8">
@@ -221,6 +262,11 @@
                                                 name="complement"
                                                 value="{{ $user->complement ?? old('complement') }}"
                                             >
+                                            @if ($errors->has('complement'))
+                                                <small class="form-text text-danger">
+                                                    {{ $errors->first('complement') }}
+                                                </small>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -238,6 +284,11 @@
                                                 name="neighborhood"
                                                 value="{{ $user->neighborhood ?? old('neighborhood') }}"
                                             >
+                                            @if ($errors->has('neighborhood'))
+                                                <small class="form-text text-danger">
+                                                    {{ $errors->first('neighborhood') }}
+                                                </small>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -253,6 +304,11 @@
                                                 name="city"
                                                 value="{{ $user->city ?? old('city') }}"
                                             >
+                                            @if ($errors->has('city'))
+                                                <small class="form-text text-danger">
+                                                    {{ $errors->first('city') }}
+                                                </small>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -270,6 +326,11 @@
                                                 name="state"
                                                 value="{{ $user->state ?? old('state') }}"
                                             >
+                                            @if ($errors->has('state'))
+                                                <small class="form-text text-danger">
+                                                    {{ $errors->first('state') }}
+                                                </small>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -291,6 +352,11 @@
                                                 name="telephone"
                                                 value="{{ $user->telephone ?? old('telephone') }}"
                                             >
+                                            @if ($errors->has('telephone'))
+                                                <small class="form-text text-danger">
+                                                    {{ $errors->first('telephone') }}
+                                                </small>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -306,6 +372,11 @@
                                                 name="cell"
                                                 value="{{ $user->cell ?? old('cell') }}"
                                             >
+                                            @if ($errors->has('cell'))
+                                                <small class="form-text text-danger">
+                                                    {{ $errors->first('cell') }}
+                                                </small>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -325,6 +396,11 @@
                                         name="occupation"
                                         value="{{ $user->occupation ?? old('occupation') }}"
                                     >
+                                    @if ($errors->has('description'))
+                                        <small class="form-text text-danger">
+                                            {{ $errors->first('description') }}
+                                        </small>
+                                    @endif
                                 </div>
                                 <div class="form-group focused">
                                     <label>Description</label>
@@ -334,10 +410,15 @@
                                         placeholder="A brief description about you"
                                         name="description"
                                     >{{ $user->description ?? old('description') }}</textarea>
+                                    @if ($errors->has('description'))
+                                        <small class="form-text text-danger">
+                                            {{ $errors->first('description') }}
+                                        </small>
+                                    @endif
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">
-                                Update
+                                Update Profile
                             </button>
                         </form>
                     </div>
@@ -364,15 +445,19 @@
              * Autocomplete address infos
              */
             $('input[name="zipcode"]').focusout('mouseleave', function() {
+                const input = $(this)
+
                 $.ajax({
-                    url: `https://viacep.com.br/ws/${$(this).val()}/json/`,
+                    url: `https://viacep.com.br/ws/${input.val()}/json/`,
                     type: 'GET',
                     dataType: 'json',
                     success: response => {
                         if (response.erro) {
-
+                            input.siblings('small').hide()
+                            input.siblings('small').fadeIn(300).text('Invalid zipcode')
                             return
                         }
+                        input.siblings('small').fadeOut(300).text('')
                         $('input[name="street"]').val(response.logradouro)
                         $('input[name="complement"]').val(response.complemento)
                         $('input[name="neighborhood"]').val(response.bairro)
