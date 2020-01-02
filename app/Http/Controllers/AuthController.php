@@ -3,22 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Support\Resizer;
 use App\Http\Requests\UserRegister as UserRegisterRequest;
 use App\Http\Requests\UserLogin as UserLoginRequest;
 use App\Http\Requests\UserResetPassword as UserResetPasswordRequest;
 use App\Mail\NewPassword as NewPasswordMail;
 use App\Mail\ResetPassword as ResetPasswordMail;
-use App\Support\Resizer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\User as SocialiteUser;
-use Exception;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -29,8 +28,8 @@ class AuthController extends Controller
      */
     public function showLoginPage()
     {
-        if (auth()->check()) {
-            return redirect()->route('dashboard.index');
+        if (Auth::check()) {
+            return redirect()->route('dashboard.profile');
         }
         return view('pages.login');
     }
@@ -50,7 +49,6 @@ class AuthController extends Controller
      *
      * @param App\Http\Requests\UserRegister $userRegisterRequest
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
      */
     public function storeUser(UserRegisterRequest $userRegisterRequest)
     {
@@ -69,9 +67,9 @@ class AuthController extends Controller
             return redirect()->back()->withInput()->withErrors('');
         }
 
-        auth()->loginUsingId($newUser->id);
+        Auth::loginUsingId($newUser->id);
 
-        return redirect()->route('dashboard.index')->with([
+        return redirect()->route('dashboard.profile')->with([
             'status' => 'success',
             'message' => $newUser->name . ', you were successfully registered!'
         ]);
@@ -82,11 +80,10 @@ class AuthController extends Controller
      *
      * @param App\Http\Requests\UserLogin $userLoginRequest
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
      */
     public function login(UserLoginRequest $userLoginRequest)
     {
-        if (!auth()->attempt($userLoginRequest->only(['email', 'password']))) {
+        if (!Auth::attempt($userLoginRequest->only(['email', 'password']))) {
             return redirect()->back()->withInput()->withErrors([
                 'credentials' => 'Invalid credentials entered, please try again',
             ]);
@@ -94,7 +91,7 @@ class AuthController extends Controller
 
         $this->updateLoginInfos($userLoginRequest->getClientIp());
 
-        return redirect()->route('dashboard.index')->with([
+        return redirect()->route('dashboard.profile')->with([
             'status' => 'success',
             'message' => 'Welcome ' . auth()->user()->name . '!'
         ]);
@@ -107,7 +104,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        Auth::logout();
         return redirect()->route('login');
     }
 
@@ -119,14 +116,7 @@ class AuthController extends Controller
      */
     public function redirectToProvider(string $provider)
     {
-        try {
-            return Socialite::driver($provider)->redirect();
-        } catch (Exception $e) {
-            return redirect()->route('login')->with([
-                'status' => 'danger',
-                'message' => 'Something went wrong while authenticating, please try again'
-            ]);
-        }
+        return Socialite::driver($provider)->redirect();
     }
 
     /**
@@ -137,20 +127,13 @@ class AuthController extends Controller
      */
     public function handleProviderCallback(string $provider)
     {
-        try {
-            $callbackUser = Socialite::driver($provider)->user();
-        } catch (Exception $e) {
-            return redirect()->route('login')->with([
-                'status' => 'danger',
-                'message' => 'Something went wrong while authenticating, please try again'
-            ]);
-        }
+        $callbackUser = Socialite::driver($provider)->user();
 
         $authUser = $this->findOrCreateCallbackUser($callbackUser, $provider);
 
         if (!empty($authUser)) {
-            auth()->loginUsingId($authUser->id);
-            return redirect()->route('dashboard.index');
+            Auth::loginUsingId($authUser->id);
+            return redirect()->route('dashboard.profile');
         }
 
         return redirect()->route('login')->with([
@@ -232,11 +215,6 @@ class AuthController extends Controller
 
         Mail::to($request->email)->send(new ResetPasswordMail($user, $token));
 
-        // return view('mail.reset-password')->with([
-        //     'user' => $user,
-        //     'token' => $token
-        // ]);
-
         return redirect()->route('login')->with([
             'status' => 'success',
             'message' => $user->name . ', an email has been sent to you with the access token to modify your password.'
@@ -267,12 +245,12 @@ class AuthController extends Controller
         if (empty($token)) {
             return redirect()->route('login')->with([
                 'status' => 'danger',
-                'message' => 'Your access token are not valid to change your password.'
+                'message' => 'The access token informed are not valid to change your password.'
             ]);
         }
 
         $user = User::whereEmail($userResetPasswordRequest->email)->first();
-        $user->password = Hash::make($userResetPasswordRequest->password);
+        $user->password = $userResetPasswordRequest->password;
         $user->save();
 
         DB::table('password_resets')->whereEmail($user->email)->delete();
@@ -291,9 +269,7 @@ class AuthController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function updatePassword(Request $request)
-    {
-    }
+    public function updatePassword(Request $request) {}
 
     /**
      * Update user login infos (date & ip)
@@ -303,7 +279,7 @@ class AuthController extends Controller
      */
     private function updateLoginInfos(string $ip): void
     {
-        $user = User::where('id', auth()->user()->id);
+        $user = User::where('id', Auth::user()->id);
         $user->update([
             'last_login_at' => date('Y-m-d H:i:s'),
             'last_login_ip' => $ip,

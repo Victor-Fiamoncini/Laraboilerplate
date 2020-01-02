@@ -75,7 +75,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth'], 'as' => 'dashbo
     /**
      * "/dashboard"
      */
-    Route::get('/', 'UserController@showIndexPage')->name('index');
+    Route::get('/', 'UserController@showProfilePage')->name('profile');
 
     /**
      * "/dashboard/user/{user}/edit"

@@ -4,7 +4,7 @@
         {{-- Brand --}}
         <a
             class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-            href="{{ route('dashboard.index') }}"
+            href="{{ route('dashboard.profile') }}"
         >
             {{ $title }}
         </a>
@@ -21,12 +21,12 @@
                 >
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
-                            @if (!empty(auth()->user()->url_cover_thumb))
+                            @if (!empty(Auth::user()->url_cover_thumb))
                                 <img
                                     class="shadow fit-image"
-                                    src="{{ auth()->user()->url_cover_thumb  }}"
-                                    alt="{{ auth()->user()->name }}"
-                                    title="{{ auth()->user()->name }}"
+                                    src="{{ Auth::user()->url_cover_thumb }}"
+                                    alt="{{ Auth::user()->name }}"
+                                    title="{{ Auth::user()->name }}"
                                 >
                             @else
                                 <img
@@ -39,7 +39,7 @@
                         </span>
                         <div class="media-body ml-2 d-none d-lg-block">
                             <span class="mb-0 text-sm  font-weight-bold">
-                                {{ auth()->user()->name }}
+                                {{ Auth::user()->name }}
                             </span>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                     </div>
                     <a
                         class="dropdown-item"
-                        href="{{ route('dashboard.user.edit', auth()->user()->id) }}"
+                        href="{{ route('dashboard.user.edit', Auth::user()->id) }}"
                     >
                         <i class="ni ni-single-02"></i>
                         <span>Profile</span>

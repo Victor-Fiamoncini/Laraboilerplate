@@ -8,13 +8,13 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     /**
-     * Return dashboard main view
+     * Return dashboard profile view
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showIndexPage()
+    public function showProfilePage()
     {
-        return view('pages.index')->with([
+        return view('pages.profile')->with([
             'status' => 'success',
             'message' => auth()->user()->name . ', you were successfully registered!'
         ]);

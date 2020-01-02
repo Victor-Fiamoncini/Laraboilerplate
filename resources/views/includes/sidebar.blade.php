@@ -15,7 +15,7 @@
         >
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="text-center" href="{{ route('dashboard.index') }}">
+        <a class="text-center" href="{{ route('dashboard.profile') }}">
             <img
                 class="img-fluid"
                 src="{{ asset('assets/images/logo-laraboilerplate.png') }}"
@@ -48,14 +48,9 @@
             {{-- Menu --}}
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link pt-0 mb-2" href="{{ route('dashboard.index') }}">
-                        <i class="ni ni-app text-primary"></i> Home
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a
                         class="nav-link pt-0 mb-2"
-                        href="{{ route('dashboard.user.edit', auth()->user()->id) }}"
+                        href="{{ route('dashboard.user.edit', Auth::user()->id) }}"
                     >
                         <i class="ni ni-single-02 text-yellow"></i> Profile
                     </a>
