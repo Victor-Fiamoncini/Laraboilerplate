@@ -1,7 +1,5 @@
-User: {{ $user->name }}
+Hello {{ $user->name }}
 <br>
-Token: {{ $token }}
-<br>
-<a href="{{ route('password.form', $token) }}">
+<a href="{{ route('password.reset.form', $token) }}" title="Reset Password">
     Access here to reset your password
 </a>

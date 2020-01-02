@@ -2,7 +2,7 @@
 @extends('templates.auth-master')
 
 {{-- Content --}}
-@section('title', 'Forgot Password')
+@section('title', 'Reset Password')
 @section('auth-content')
     <div class="main-content bg-default h-100">
         {{-- Header --}}
@@ -21,7 +21,9 @@
                                 action="{{ route('password.reset.do') }}"
                                 method="POST"
                             >
+                                @method('PUT')
                                 @csrf
+                                <input type="hidden" name="token" value="{{ $token }}">
                                 <div
                                     class="
                                         form-group mb-3

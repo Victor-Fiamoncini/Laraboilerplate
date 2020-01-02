@@ -5,16 +5,20 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Http\Requests\UserRegister as UserRegisterRequest;
 use App\Http\Requests\UserLogin as UserLoginRequest;
+use App\Http\Requests\UserResetPassword as UserResetPasswordRequest;
+use App\Mail\NewPassword as NewPasswordMail;
 use App\Mail\ResetPassword as ResetPasswordMail;
 use App\Support\Resizer;
 use Illuminate\Http\Request;
-use Laravel\Socialite\Facades\Socialite;
-use Laravel\Socialite\Two\User as SocialiteUser;
-use Exception;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\User as SocialiteUser;
+use Exception;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -169,7 +173,7 @@ class AuthController extends Controller
         }
 
         if (!empty($callbackUser->name)) {
-            $rawPassword = uniqid();
+            $rawPassword = Str::random(16);
 
             $newUser = User::create([
                 'name' => $callbackUser->name,
@@ -218,7 +222,7 @@ class AuthController extends Controller
         }
 
         $user = User::whereEmail($request->email)->first();
-        $token = uniqid();
+        $token = Str::random(16);
 
         DB::table('password_resets')->insert([
             'email' => $user->email,
@@ -235,28 +239,50 @@ class AuthController extends Controller
 
         return redirect()->route('login')->with([
             'status' => 'success',
-            'message' => $user->name . ', an email has been sent to you with the credential to modify your password.'
+            'message' => $user->name . ', an email has been sent to you with the access token to modify your password.'
         ]);
     }
 
     /**
      * Return reset password view
      *
+     * @param string $token
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showResetPasswordForm()
+    public function showResetPasswordForm(string $token)
     {
-        return view('pages.reset-password');
+        return view('pages.reset-password')->with('token', $token);
     }
 
     /**
-     * Reset user password
+     * Change user password and send email with it
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param \App\Http\Requests\UserResetPassword
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function resetPassword(Request $request)
+    public function resetPassword(UserResetPasswordRequest $userResetPasswordRequest)
     {
+        $token = DB::table('password_resets')->where('token', $userResetPasswordRequest->token)->first();
+
+        if (empty($token)) {
+            return redirect()->route('login')->with([
+                'status' => 'danger',
+                'message' => 'Your access token are not valid to change your password.'
+            ]);
+        }
+
+        $user = User::whereEmail($userResetPasswordRequest->email)->first();
+        $user->password = Hash::make($userResetPasswordRequest->password);
+        $user->save();
+
+        DB::table('password_resets')->whereEmail($user->email)->delete();
+
+        Mail::to($user->email)->send(new NewPasswordMail($user, $userResetPasswordRequest->password));
+
+        return redirect()->route('login')->with([
+            'status' => 'success',
+            'message' => $user->name . ', your password was successfully modified!'
+        ]);
     }
 
     /**

@@ -30,11 +30,11 @@ Route::post('/register/user', 'AuthController@storeUser')->name('register.user')
 /**
  * Reset password routes
  */
-Route::prefix('password')->group(function () {
+Route::prefix('password')->group(function() {
     /**
-     * "/password"
+     * "/password/forgot"
      */
-    Route::get('/', 'AuthController@showForgotPasswordPage')->name('password.forgot');
+    Route::get('/forgot', 'AuthController@showForgotPasswordPage')->name('password.forgot');
 
     /**
      * "/password/reset/mail"
@@ -49,7 +49,7 @@ Route::prefix('password')->group(function () {
     /**
      * "password/reset"
      */
-    Route::post('/reset', 'AuthController@resetPassword')->name('password.reset.do');
+    Route::put('/reset', 'AuthController@resetPassword')->name('password.reset.do');
 });
 
 /**
@@ -71,7 +71,7 @@ Route::get('/{provider}/auth/callback', 'AuthController@handleProviderCallback')
  *
  * "/dashboard"
  */
-Route::group(['prefix' => 'dashboard', 'middleware' => ['auth'], 'as' => 'dashboard.'], function () {
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth'], 'as' => 'dashboard.'], function() {
     /**
      * "/dashboard"
      */
