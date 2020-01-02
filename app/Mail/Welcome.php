@@ -7,19 +7,19 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class NewPassword extends Mailable
+class Welcome extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
-     * User that requests reset password
+     * New registered user
      *
      * @var \App\User
      */
     private $user;
 
     /**
-     * New user password
+     * Raw user password registered
      *
      * @var string
      */
@@ -47,8 +47,8 @@ class NewPassword extends Mailable
     {
         return $this
             ->from($this->user->email)
-            ->subject('Laraboilerplate - Your new password')
-            ->view('mail.new-password')
+            ->subject('Welcome to Laraboilerplate!')
+            ->view('mail.welcome')
             ->with([
                 'user' => $this->user,
                 'password' => $this->password

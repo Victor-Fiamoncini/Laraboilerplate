@@ -9,6 +9,7 @@ use App\Http\Requests\UserLogin as UserLoginRequest;
 use App\Http\Requests\UserResetPassword as UserResetPasswordRequest;
 use App\Mail\NewPassword as NewPasswordMail;
 use App\Mail\ResetPassword as ResetPasswordMail;
+use App\Mail\Welcome as WelcomeMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -147,35 +148,29 @@ class AuthController extends Controller
      *
      * @param string $provider
      * @param \Laravel\Socialite\Two\User $callbackUser
-     * @return \App\User|null
+     * @return \App\User
      */
-    private function findOrCreateCallbackUser(SocialiteUser $callbackUser, string $provider): ?User
+    private function findOrCreateCallbackUser(SocialiteUser $callbackUser, string $provider): User
     {
         if ($authUser = User::whereEmail($callbackUser->email)->first()) {
             return $authUser;
         }
 
-        if (!empty($callbackUser->name)) {
-            $rawPassword = Str::random(16);
+        $rawPassword = Str::random(16);
 
-            $newUser = User::create([
-                'name' => $callbackUser->name,
-                'email' => $callbackUser->email,
-                'password' => bcrypt($rawPassword),
-                $provider . '_id' => $callbackUser->id,
-                'cover' => $callbackUser->avatar,
-            ]);
+        $newUser = User::create([
+            'name' => !empty($callbackUser->name) ?  $callbackUser->name : 'New user',
+            'email' => $callbackUser->email,
+            'password' => $rawPassword,
+            $provider . '_id' => $callbackUser->id,
+            'cover' => $callbackUser->avatar,
+        ]);
 
-            // Store the avatar photo and create thumb
+        Mail::to($newUser->email)->send(new WelcomeMail($newUser, $rawPassword));
 
-            session()->flash('providerFirstLogin', true);
+        session()->flash('providerFirstLogin', true);
 
-            // Send email with current password and link to change it
-
-            return $newUser;
-        }
-
-        return null;
+        return $newUser;
     }
 
     /**
@@ -217,7 +212,7 @@ class AuthController extends Controller
 
         return redirect()->route('login')->with([
             'status' => 'success',
-            'message' => $user->name . ', an email has been sent to you with the access token to modify your password.'
+            'message' => $user->name . ', an email has been sent to you with an access token that you can use to modify your password!'
         ]);
     }
 
@@ -245,7 +240,7 @@ class AuthController extends Controller
         if (empty($token)) {
             return redirect()->route('login')->with([
                 'status' => 'danger',
-                'message' => 'The access token informed are not valid to change your password.'
+                'message' => 'The access token informed are not valid to change your password!'
             ]);
         }
 
@@ -262,14 +257,6 @@ class AuthController extends Controller
             'message' => $user->name . ', your password was successfully modified!'
         ]);
     }
-
-    /**
-     * Update the first random user password
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function updatePassword(Request $request) {}
 
     /**
      * Update user login infos (date & ip)
