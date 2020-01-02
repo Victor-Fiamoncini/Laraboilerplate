@@ -30,7 +30,6 @@ class ResetPassword extends Mailable
      *
      * @param \App\User $user
      * @param string $token
-     * @return void
      */
     public function __construct(User $user, string $token)
     {

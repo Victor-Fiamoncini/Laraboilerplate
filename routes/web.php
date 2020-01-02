@@ -34,17 +34,17 @@ Route::prefix('password')->group(function () {
     /**
      * "/password"
      */
-    Route::get('/', 'AuthController@showForgotPasswordPage')->name('password');
+    Route::get('/', 'AuthController@showForgotPasswordPage')->name('password.forgot');
 
     /**
      * "/password/reset/mail"
      */
-    Route::post('/reset/mail', 'AuthController@sendResetPasswordMail')->name('password.mail');
+    Route::post('/reset/mail', 'AuthController@sendResetPasswordMail')->name('password.reset.mail');
 
     /**
      * "password/reset/{token}"
      */
-    Route::get('/reset/{token}', 'AuthController@showResetPasswordForm')->name('password.form');
+    Route::get('/reset/{token}', 'AuthController@showResetPasswordForm')->name('password.reset.form');
 
     /**
      * "password/reset"

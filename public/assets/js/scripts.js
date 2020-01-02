@@ -7,22 +7,22 @@ $(function() {
      * @param {number} numberOfChars
      */
     const getMessageSpanValue = numberOfChars => {
-        let messages = {
-            0: () => messageSpan
+        if (numberOfChars >= 0 && numberOfChars <= 5) {
+            messageSpan
                 .addClass('text-danger')
                 .removeClass('text-yellow text-success')
-                .text('weak'),
-            6: () => messageSpan
+                .text('weak')
+        } else if (numberOfChars >= 6 && numberOfChars < 9) {
+            messageSpan
                 .addClass('text-yellow')
                 .removeClass('text-danger text-success')
-                .text('medium'),
-            10: () => messageSpan
+                .text('medium')
+        } else if (numberOfChars >= 9) {
+            messageSpan
                 .addClass('text-success')
                 .removeClass('text-yellow text-danger')
-                .text('large'),
-            default: () => {}
+                .text('large')
         }
-        return (messages[numberOfChars] || messages.default)()
     }
 
     $('input[name="password"]').bind('keydown', 'change', function() {

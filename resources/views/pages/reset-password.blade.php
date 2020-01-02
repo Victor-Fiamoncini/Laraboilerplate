@@ -18,7 +18,7 @@
                         <div class="card-body px-lg-5 py-lg-5">
                             <form
                                 role="form"
-                                action="{{ route('password.mail') }}"
+                                action="{{ route('password.reset.do') }}"
                                 method="POST"
                             >
                                 @csrf

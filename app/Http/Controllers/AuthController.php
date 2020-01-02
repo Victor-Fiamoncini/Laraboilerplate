@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Http\Requests\UserRegister as UserRegisterRequest;
 use App\Http\Requests\UserLogin as UserLoginRequest;
-use App\Mail\ResetPassword;
+use App\Mail\ResetPassword as ResetPasswordMail;
 use App\Support\Resizer;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\User as SocialiteUser;
 use Exception;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -162,7 +164,7 @@ class AuthController extends Controller
      */
     private function findOrCreateCallbackUser(SocialiteUser $callbackUser, string $provider): ?User
     {
-        if ($authUser = User::where('email', $callbackUser->email)->first()) {
+        if ($authUser = User::whereEmail($callbackUser->email)->first()) {
             return $authUser;
         }
 
@@ -216,17 +218,24 @@ class AuthController extends Controller
         }
 
         $user = User::whereEmail($request->email)->first();
+        $token = uniqid();
 
-        // Mail::to($request->email)->send(new ResetPassword($user, uniqid()));
-
-        return view('mail.reset-password')->with([
-            'user' => $user,
-            'token' => uniqid()
+        DB::table('password_resets')->insert([
+            'email' => $user->email,
+            'token' => $token,
+            'created_at' => Carbon::now()
         ]);
+
+        Mail::to($request->email)->send(new ResetPasswordMail($user, $token));
+
+        // return view('mail.reset-password')->with([
+        //     'user' => $user,
+        //     'token' => $token
+        // ]);
 
         return redirect()->route('login')->with([
             'status' => 'success',
-            'message' => 'An email has been sent to you with the credential to modify your password.'
+            'message' => $user->name . ', an email has been sent to you with the credential to modify your password.'
         ]);
     }
 
