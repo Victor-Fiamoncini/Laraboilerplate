@@ -26,6 +26,7 @@ class UserRegister extends FormRequest
         return [
             'name' => 'required|min:3|max:255',
             'email' => 'required|email|max:255|unique:users',
+            'cover' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
             'password' => 'min:6|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation' => 'required|min:6',
         ];

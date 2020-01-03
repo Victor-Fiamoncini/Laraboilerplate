@@ -25,7 +25,7 @@ Route::get('/register', 'AuthController@showRegisterPage')->name('register');
 /**
  * "/register/user"
  */
-Route::post('/register/user', 'AuthController@storeUser')->name('register.user');
+Route::post('/register/user', 'UserController@store')->name('register.user');
 
 /**
  * Reset password routes

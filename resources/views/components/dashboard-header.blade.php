@@ -23,21 +23,12 @@
                 >
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
-                            @if (!empty(Auth::user()->cover))
-                                <img
-                                    class="shadow fit-image"
-                                    src="{{ Auth::user()->cover }}"
-                                    alt="{{ Auth::user()->name }}"
-                                    title="{{ Auth::user()->name }}"
-                                >
-                            @else
-                                <img
-                                    class="shadow fit-image"
-                                    src="{{ asset('assets/images/avatar.jpg') }}"
-                                    alt="Avatar"
-                                    title="Avatar"
-                                >
-                            @endif
+                            <img
+                                class="shadow fit-image"
+                                src="{{ Auth::user()->url_cover }}"
+                                alt="{{ Auth::user()->name }}"
+                                title="{{ Auth::user()->name }}"
+                            >
                         </span>
                         <div class="media-body ml-2 d-none d-lg-block">
                             <span class="mb-0 text-sm  font-weight-bold">

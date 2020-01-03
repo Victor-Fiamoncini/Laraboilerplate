@@ -3,12 +3,46 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Support\Resizer;
+use App\Http\Requests\UserRegister as UserRegisterRequest;
 use App\Http\Requests\UserUpdate as UserUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    /**
+     * Register a new user into database
+     *
+     * @param App\Http\Requests\UserRegister $userRegisterRequest
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(UserRegisterRequest $userRegisterRequest)
+    {
+        $newUser = new User();
+        $newUser->name = $userRegisterRequest->name;
+        $newUser->email = $userRegisterRequest->email;
+        $newUser->password = $userRegisterRequest->password;
+
+        if (!empty($userRegisterRequest->file('cover'))) {
+            $resizer = new Resizer($userRegisterRequest->file('cover'), 'users');
+            $newUser->cover = $resizer->makeThumb();
+        }
+
+        if (!$newUser->save()) {
+            return redirect()->back()->withInput()->withErrors('');
+        }
+
+        Auth::loginUsingId($newUser->id);
+
+        return redirect()->route('dashboard.profile')->with([
+            'status' => 'success',
+            'message' => $newUser->name . ', you were successfully registered!'
+        ]);
+    }
+
     /**
      * Return dashboard profile view
      *
@@ -41,7 +75,7 @@ class UserController extends Controller
     }
 
     /**
-     * Update profile photo
+     * Update user photo
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\User $user
@@ -49,6 +83,20 @@ class UserController extends Controller
      */
     public function updatePhoto(Request $request, User $user)
     {
+        $validator = Validator::make($request->all(), [
+            'cover' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        Storage::delete($user->cover);
+
+        $resizer = new Resizer($request->file('cover'), 'users');
+        $user->cover = $resizer->makeThumb();
+        $user->save();
+
         return redirect()->route('dashboard.profile')->with([
             'status' => 'success',
             'message' => 'Profile photo updated successfully!'

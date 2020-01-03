@@ -17,6 +17,8 @@
                     {{-- Messages --}}
                     @Message
                         @slot('heading', 'h4')
+                        @slot('status', session('status'))
+                        @slot('message', session('message'))
                     @endMessage
                     <div class="card bg-secondary shadow border-0">
                         <div class="card-header bg-transparent pb-5">

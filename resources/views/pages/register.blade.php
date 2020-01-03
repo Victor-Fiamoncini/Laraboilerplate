@@ -89,6 +89,11 @@
                                         <i class="fas fa-camera mr-1 color-gray"></i>
                                         <small class="color-gray">Profile picture</small>
                                     </label>
+                                    @if ($errors->has('cover'))
+                                        <small class="form-text text-danger">
+                                            {{ $errors->first('cover') }}
+                                        </small>
+                                    @endif
                                 </div>
                                 <div
                                     class="

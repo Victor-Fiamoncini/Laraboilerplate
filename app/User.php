@@ -72,23 +72,13 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the user photo (cover) path
+     * Accessor "cover"
      *
      * @return string
      */
     public function getUrlCoverAttribute(): string
     {
-        return !empty($this->cover) ? Storage::url($this->cover) : '';
-    }
-
-    /**
-     * Get the user thumb (cover_thumb) path
-     *
-     * @return string
-     */
-    public function getUrlCoverThumbAttribute(): string
-    {
-        return !empty($this->cover_thumb) ? Storage::url($this->cover_thumb) : '';
+        return !empty($this->cover) ? Storage::url($this->cover) : asset('assets/images/avatar.jpg');
     }
 
     /**
@@ -105,18 +95,20 @@ class User extends Authenticatable
     /**
      * Accessor "date_of_birth"
      *
-     * @return string
+     * @return string|null
      */
-    public function getDateOfBirthAttribute(): string
+    public function getDateOfBirthAttribute(): ?string
     {
-        return date('d/m/Y', strtotime($this->attributes['date_of_birth']));
+        return !empty($this->attributes['date_of_birth'])
+            ? date('d/m/Y', strtotime($this->attributes['date_of_birth']))
+            : null;
     }
 
     /**
-     * Mutator "date_of_birth", set age attribute
+     * Mutator "date_of_birth", set "age" attribute
      *
      * @param string|null $date_of_birth
-     * @return void
+     * @return null
      */
     public function setDateOfBirthAttribute(?string $dateOfBirth): void
     {

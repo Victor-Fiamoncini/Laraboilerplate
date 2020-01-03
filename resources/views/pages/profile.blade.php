@@ -11,9 +11,22 @@
     <div class="header pb-8 pt-5 pt-lg-8  align-items-center bg-gradient-warning h-25">
         <span class="mask opacity-8"></span>
         <div class="container-fluid">
-            @Message
-                @slot('heading', 'h3')
-            @endMessage
+            {{-- Messages --}}
+            @if (session('status') && session('message'))
+                @Message
+                    @slot('heading', 'h4')
+                    @slot('status', session('status'))
+                    @slot('message', session('message'))
+                @endMessage
+            @endif
+            {{-- Form errors --}}
+            @if ($errors->has('cover'))
+                @Message
+                    @slot('heading', 'h4')
+                    @slot('status', 'danger')
+                    @slot('message', $errors->first())
+                @endMessage
+            @endif
         </div>
         <div class="container-fluid d-flex align-items-center">
             <div class="row">
@@ -33,12 +46,14 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
-                                <img
-                                    class="rounded-circle"
-                                    src="{{ $user->cover }}"
-                                    alt="{{ $user->name }}"
-                                    title="{{ $user->name }}"
-                                >
+                                <a data-toggle="modal" data-target="#modal">
+                                    <img
+                                        class="rounded-circle"
+                                        src="{{ $user->url_cover }}"
+                                        alt="{{ $user->name }}"
+                                        title="{{ $user->name }}"
+                                    >
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -95,8 +110,12 @@
                         </div>
                         <div class="text-center">
                             <h3>{{ $user->name }}</h3>
-                            <div class="h5 mt-2">{{ $user->occupation }}</div>
-                            <hr>
+                            <div class="h5 mt-2">
+                                @empty(!$user->occupation)
+                                    {{ $user->occupation }}
+                                    <hr>
+                                @endempty
+                            </div>
                             <div class="h5 font-weight-600">
                                 @empty(!$user->age)
                                     {{ $user->age }} years -
@@ -497,6 +516,7 @@
              */
             $('input[name="zipcode"]').focusout('mouseleave', function() {
                 const input = $(this)
+                input.siblings('small').hide()
 
                 $.ajax({
                     url: `https://viacep.com.br/ws/${input.val()}/json/`,
@@ -504,7 +524,6 @@
                     dataType: 'json',
                     success: response => {
                         if (response.erro) {
-                            input.siblings('small').hide()
                             input.siblings('small').fadeIn(300).text('Invalid zipcode')
                             return
                         }

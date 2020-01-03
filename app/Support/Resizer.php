@@ -4,6 +4,7 @@ namespace App\Support;
 
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 
 class Resizer
 {
@@ -22,7 +23,7 @@ class Resizer
     private $pathPrefix;
 
     /**
-     * Image constructor
+     * Resizer constructor
      *
      * @param Illuminate\Http\UploadedFile $uploadFile
      * @param string $pathPrefix
@@ -50,16 +51,10 @@ class Resizer
      */
     public function makeThumb(): string
     {
-        $filename =
-            hash('sha256', time()) . '-thumb-' .
-            $this->uploadFile->getFilename() . '.' .
-            $this->uploadFile->getClientOriginalExtension();
-
+        $filename = Str::random(16) . '-thumb-' . $this->uploadFile->getClientOriginalName();
         $path = public_path('/storage/' . $this->pathPrefix . '/' . $filename);
 
-        Image::make($this->uploadFile->getRealPath())
-            ->resize(280, 192)
-            ->save($path);
+        Image::make($this->uploadFile->getRealPath())->resize(320, 320)->save($path);
 
         return $this->pathPrefix . '/' . $filename;
     }

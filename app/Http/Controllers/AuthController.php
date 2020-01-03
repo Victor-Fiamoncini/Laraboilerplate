@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Support\Resizer;
-use App\Http\Requests\UserRegister as UserRegisterRequest;
 use App\Http\Requests\UserLogin as UserLoginRequest;
 use App\Http\Requests\UserResetPassword as UserResetPasswordRequest;
 use App\Mail\NewPassword as NewPasswordMail;
@@ -43,37 +41,6 @@ class AuthController extends Controller
     public function showRegisterPage()
     {
         return view('pages.register');
-    }
-
-    /**
-     * Register a new user into database
-     *
-     * @param App\Http\Requests\UserRegister $userRegisterRequest
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function storeUser(UserRegisterRequest $userRegisterRequest)
-    {
-        $newUser = new User();
-        $newUser->name = $userRegisterRequest->name;
-        $newUser->email = $userRegisterRequest->email;
-        $newUser->password = $userRegisterRequest->password;
-
-        if (!empty($userRegisterRequest->file('cover'))) {
-            $resizer = new Resizer($userRegisterRequest->file('cover'), 'users');
-            $newUser->cover = $resizer->storeOriginalImage();
-            $newUser->cover_thumb = $resizer->makeThumb();
-        }
-
-        if (!$newUser->save()) {
-            return redirect()->back()->withInput()->withErrors('');
-        }
-
-        Auth::loginUsingId($newUser->id);
-
-        return redirect()->route('dashboard.profile')->with([
-            'status' => 'success',
-            'message' => $newUser->name . ', you were successfully registered!'
-        ]);
     }
 
     /**
