@@ -14,7 +14,7 @@
             <li class="nav-item dropdown">
                 <a
                     class="nav-link pr-0"
-                    href="!#"
+                    href=""
                     role="button"
                     data-toggle="dropdown"
                     aria-haspopup="true"
@@ -22,7 +22,7 @@
                     rel="noopener noreferrer"
                 >
                     <div class="media align-items-center">
-                        <span class="avatar avatar-sm rounded-circle">
+                        <span class="avatar avatar-md rounded-circle">
                             <img
                                 class="shadow fit-image"
                                 src="{{ Auth::user()->url_cover }}"

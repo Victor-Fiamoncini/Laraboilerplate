@@ -52,9 +52,10 @@ class AuthController extends Controller
      */
     public function login(UserLoginRequest $userLoginRequest)
     {
+        $credentials = $userLoginRequest->only(['email', 'password']);
         $rememberMe = $userLoginRequest->has('remeber_me') ? true : false;
 
-        if (!Auth::attempt($userLoginRequest->only(['email', 'password']), $rememberMe)) {
+        if (!Auth::attempt($credentials, $rememberMe)) {
             return redirect()->back()->withInput()->withErrors([
                 'credentials' => 'Invalid credentials entered, please try again',
             ]);
@@ -119,7 +120,11 @@ class AuthController extends Controller
      */
     private function findOrCreateCallbackUser(SocialiteUser $callbackUser, string $provider): User
     {
-        if ($authUser = User::whereEmail($callbackUser->email)->first()) {
+        $authUser = User::whereEmail($callbackUser->email)
+            ->orWhere($provider . '_id', $callbackUser->id)
+            ->first();
+
+        if (!empty($authUser)) {
             return $authUser;
         }
 

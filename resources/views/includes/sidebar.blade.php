@@ -75,7 +75,7 @@
                         href=""
                         rel="noopener noreferrer"
                     >
-                        <i class="fas fa-rocket text-orange"></i> About
+                        <i class="fas fa-rocket text-primary"></i> About
                     </a>
                 </li>
             </ul>

@@ -19,7 +19,6 @@
                     @slot('message', session('message'))
                 @endMessage
             @endif
-            {{-- Form errors --}}
             @if ($errors->has('cover'))
                 @Message
                     @slot('heading', 'h4')
@@ -46,7 +45,12 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
-                                <a data-toggle="modal" data-target="#modal">
+                                <a
+                                    href=""
+                                    rel="noopener noreferrer"
+                                    data-toggle="modal"
+                                    data-target="#modal"
+                                >
                                     <img
                                         class="rounded-circle"
                                         src="{{ $user->url_cover }}"
@@ -59,14 +63,15 @@
                     </div>
                     <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
                         <div class="d-flex justify-content-start">
-                            <button
-                                type="button"
+                            <a
+                                href=""
+                                role="button"
                                 class="btn btn-sm btn-primary"
                                 data-toggle="modal"
                                 data-target="#modal"
                             >
                                 Change
-                            </button>
+                            </a>
                         </div>
                         @Modal
                             @slot('title', 'Change your photo')
@@ -95,7 +100,7 @@
                                             <small class="color-gray">Profile picture</small>
                                         </label>
                                     </div>
-                                    <button class="btn btn-success" type="submit">
+                                    <button class="btn btn-default" type="submit">
                                         Update
                                     </button>
                                 </form>
@@ -105,25 +110,31 @@
                     <div class="card-body pt-0 pt-md-4">
                         <div class="row">
                             <div class="col">
-                                <div class="card-profile-stats d-flex justify-content-center mt-md-5"></div>
+                                <div class="card-profile-stats d-flex justify-content-center mt-md-4"></div>
                             </div>
                         </div>
                         <div class="text-center">
                             <h3>{{ $user->name }}</h3>
-                            <div class="h5 mt-2">
+                            <div class="h5 mt-3">
                                 @empty(!$user->occupation)
+                                    <i class="ni ni-briefcase-24 mr-1"></i>
                                     {{ $user->occupation }}
-                                    <hr>
                                 @endempty
                             </div>
                             <div class="h5 font-weight-600">
                                 @empty(!$user->age)
-                                    {{ $user->age }} years -
+                                    {{ $user->age }} years
                                 @endempty
                                 @empty(!$user->city && !$user->state)
-                                    {{ $user->city }}, {{ $user->state }}
+                                    - {{ $user->city }}, {{ $user->state }}
                                 @endempty
                             </div>
+                            <p>
+                                @empty(!$user->description)
+                                    <hr>
+                                    {{ $user->description }}
+                                @endempty
+                            </p>
                         </div>
                     </div>
                 </div>

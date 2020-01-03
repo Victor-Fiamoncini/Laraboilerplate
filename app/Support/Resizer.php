@@ -52,7 +52,7 @@ class Resizer
      */
     public function makeThumb(): string
     {
-        $filename = Str::random(16) . '-thumb-' . $this->uploadFile->getClientOriginalName();
+        $filename = Str::random(60) . '.' . $this->uploadFile->extension();
         $path = public_path('/storage/' . $this->pathPrefix . '/' . $filename);
 
         Image::make($this->uploadFile->getRealPath())->resize(320, 320)->save($path);
@@ -70,13 +70,13 @@ class Resizer
     {
         $finfo = new finfo(FILEINFO_MIME_TYPE);
         $mimeType = explode('/', $finfo->buffer(file_get_contents($url)))[1];
-
-        $filename = basename($url) . '.' . $mimeType;
+        $filename = Str::random(60) . '.' . $mimeType;
 
         $path = public_path('/storage/' . $this->pathPrefix . '/' . $filename);
 
         Image::make($url)->resize(320, 320)->save($path);
 
+        unset($finfo, $mimeType);
         return $this->pathPrefix . '/' . $filename;
     }
 
