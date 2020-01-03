@@ -27,7 +27,7 @@ class UserController extends Controller
         $newUser->password = $userRegisterRequest->password;
 
         if (!empty($userRegisterRequest->file('cover'))) {
-            $resizer = new Resizer($userRegisterRequest->file('cover'), 'users');
+            $resizer = new Resizer('users', $userRegisterRequest->file('cover'));
             $newUser->cover = $resizer->makeThumb();
         }
 
@@ -93,7 +93,7 @@ class UserController extends Controller
 
         Storage::delete($user->cover);
 
-        $resizer = new Resizer($request->file('cover'), 'users');
+        $resizer = new Resizer('users', $request->file('cover'));
         $user->cover = $resizer->makeThumb();
         $user->save();
 

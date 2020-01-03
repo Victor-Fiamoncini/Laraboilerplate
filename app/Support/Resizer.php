@@ -2,19 +2,13 @@
 
 namespace App\Support;
 
+use finfo;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 
 class Resizer
 {
-    /**
-     * Request file
-     *
-     * @var Illuminate\Http\UploadedFile
-     */
-    private $uploadFile;
-
     /**
      * Part of path to storage directory
      *
@@ -23,15 +17,22 @@ class Resizer
     private $pathPrefix;
 
     /**
+     * Request file
+     *
+     * @var Illuminate\Http\UploadedFile
+     */
+    private $uploadFile;
+
+    /**
      * Resizer constructor
      *
-     * @param Illuminate\Http\UploadedFile $uploadFile
      * @param string $pathPrefix
+     * @param Illuminate\Http\UploadedFile $uploadFile
      */
-    public function __construct(UploadedFile $uploadFile, string $pathPrefix = '')
+    public function __construct(string $pathPrefix = '', UploadedFile $uploadFile = null)
     {
-        $this->uploadFile = $uploadFile;
         $this->pathPrefix = $pathPrefix;
+        $this->uploadFile = $uploadFile;
     }
 
     /**
@@ -58,4 +59,26 @@ class Resizer
 
         return $this->pathPrefix . '/' . $filename;
     }
+
+    /**
+     * Resizes the image from external url and returns its path
+     *
+     * @param string $url
+     * @return string
+     */
+    public function makeThumbFromUrl(string $url): string
+    {
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $mimeType = explode('/', $finfo->buffer(file_get_contents($url)))[1];
+
+        $filename = basename($url) . '.' . $mimeType;
+
+        $path = public_path('/storage/' . $this->pathPrefix . '/' . $filename);
+
+        Image::make($url)->resize(320, 320)->save($path);
+
+        return $this->pathPrefix . '/' . $filename;
+    }
+
+
 }

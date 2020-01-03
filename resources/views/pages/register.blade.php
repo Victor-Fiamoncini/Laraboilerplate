@@ -75,20 +75,22 @@
                                         </small>
                                     @endif
                                 </div>
-                                <div class="input-group input-group-alternative mb-3">
-                                    <input
-                                        id="cover"
-                                        class="custom-file-input cursor-pointer"
-                                        type="file"
-                                        name="cover"
-                                    >
-                                    <label
-                                        class="custom-file-label border-0 font-size-17"
-                                        for="cover"
-                                    >
-                                        <i class="fas fa-camera mr-1 color-gray"></i>
-                                        <small class="color-gray">Profile picture</small>
-                                    </label>
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-alternative">
+                                        <input
+                                            id="cover"
+                                            class="custom-file-input cursor-pointer"
+                                            type="file"
+                                            name="cover"
+                                        >
+                                        <label
+                                            class="custom-file-label border-0 font-size-17"
+                                            for="cover"
+                                        >
+                                            <i class="fas fa-camera mr-1 color-gray"></i>
+                                            <small class="color-gray">Profile picture</small>
+                                        </label>
+                                    </div>
                                     @if ($errors->has('cover'))
                                         <small class="form-text text-danger">
                                             {{ $errors->first('cover') }}

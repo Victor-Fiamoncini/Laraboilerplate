@@ -8,6 +8,7 @@ use App\Http\Requests\UserResetPassword as UserResetPasswordRequest;
 use App\Mail\NewPassword as NewPasswordMail;
 use App\Mail\ResetPassword as ResetPasswordMail;
 use App\Mail\Welcome as WelcomeMail;
+use App\Support\Resizer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -110,7 +111,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Return user if exists, or create and return if doesn't
+     * Return user if exists, or create if doesn't
      *
      * @param string $provider
      * @param \Laravel\Socialite\Two\User $callbackUser
@@ -123,13 +124,14 @@ class AuthController extends Controller
         }
 
         $rawPassword = Str::random(16);
+        $resizer = new Resizer('users');
 
         $newUser = User::create([
-            'name' => !empty($callbackUser->name) ?  $callbackUser->name : 'New user',
+            'name' => !empty($callbackUser->name) ? $callbackUser->name : 'New user',
             'email' => $callbackUser->email,
             'password' => $rawPassword,
             $provider . '_id' => $callbackUser->id,
-            'cover' => $callbackUser->avatar,
+            'cover' => $resizer->makeThumbFromUrl($callbackUser->avatar),
         ]);
 
         Mail::to($newUser->email)->send(new WelcomeMail($newUser, $rawPassword));

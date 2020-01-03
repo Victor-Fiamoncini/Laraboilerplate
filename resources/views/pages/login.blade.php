@@ -15,11 +15,13 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-7">
                     {{-- Messages --}}
-                    @Message
-                        @slot('heading', 'h4')
-                        @slot('status', session('status'))
-                        @slot('message', session('message'))
-                    @endMessage
+                    @if (session('status') && session('message'))
+                        @Message
+                            @slot('heading', 'h4')
+                            @slot('status', session('status'))
+                            @slot('message', session('message'))
+                        @endMessage
+                    @endif
                     <div class="card bg-secondary shadow border-0">
                         <div class="card-header bg-transparent pb-5">
                             <div class="text-muted text-center mt-2 mb-3">
