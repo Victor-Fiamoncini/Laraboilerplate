@@ -143,8 +143,3 @@
         @include('includes.footer')
     </div>
 @endsection
-
-{{-- Scripts --}}
-@section('scripts')
-    <script src="{{ asset('assets/js/scripts.js') }}"></script>
-@endsection

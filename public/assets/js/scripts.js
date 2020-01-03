@@ -29,4 +29,11 @@ $(function() {
         getMessageSpanValue($(this).val().length)
         passwordStrength.fadeIn()
     })
+
+    /**
+     * Messages fade out
+     */
+    setTimeout(() => {
+        $('div.alert-dismissible').fadeOut(300)
+    }, 5000)
 })

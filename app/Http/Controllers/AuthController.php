@@ -94,10 +94,7 @@ class AuthController extends Controller
 
         $this->updateLoginInfos($userLoginRequest->getClientIp());
 
-        return redirect()->route('dashboard.profile')->with([
-            'status' => 'success',
-            'message' => 'Welcome ' . auth()->user()->name . '!'
-        ]);
+        return redirect()->route('dashboard.profile');
     }
 
     /**
@@ -169,8 +166,6 @@ class AuthController extends Controller
         ]);
 
         Mail::to($newUser->email)->send(new WelcomeMail($newUser, $rawPassword));
-
-        session()->flash('providerFirstLogin', true);
 
         return $newUser;
     }

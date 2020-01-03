@@ -28,6 +28,7 @@
     <script src="{{ asset('assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/argon-dashboard.min.js?v=1.1.0') }}"></script>
+    <script src="{{ asset('assets/js/scripts.js') }}"></script>
     {{-- Custom JS --}}
     @yield('scripts')
 </body>

@@ -54,7 +54,7 @@
                 <li class="nav-item {{ isActive('dashboard.profile') }}">
                     <a
                         class="nav-link {{ isActive('dashboard.profile') }}"
-                        href="{{ route('dashboard.profile', Auth::user()->id) }}"
+                        href="{{ route('dashboard.profile') }}"
                         rel="noopener noreferrer"
                     >
                         <i class="ni ni-single-02 text-yellow"></i> Profile

@@ -25,12 +25,12 @@ class UserUpdate extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:255',
+            'name' => 'min:3|max:255',
             'email' => !empty($this->request->all()['id'])
-                ? 'required|email|max:255|unique:users,' . $this->request->all()['id']
-                : 'required|email|max:255|unique:users',
-            'password' => 'min:6|required_with:password_confirmation|same:password_confirmation',
-            'password_confirmation' => 'required|min:6',
+                ? 'email|unique:users,email,' . $this->request->all()['id']
+                : 'email|unique:users,email',
+            'password' => 'same:password_confirmation',
+            'password_confirmation' => '',
         ];
     }
 }

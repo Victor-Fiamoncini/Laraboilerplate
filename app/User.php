@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DateTime;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
@@ -95,10 +96,39 @@ class User extends Authenticatable
      *
      * @param string $password
      * @return void
-     * @throws \Exception
      */
     public function setPasswordAttribute(string $password): void
     {
         $this->attributes['password'] = bcrypt($password);
     }
+
+    /**
+     * Accessor "date_of_birth"
+     *
+     * @return string
+     */
+    public function getDateOfBirthAttribute(): string
+    {
+        return date('d/m/Y', strtotime($this->attributes['date_of_birth']));
+    }
+
+    /**
+     * Mutator "date_of_birth", set age attribute
+     *
+     * @param string|null $date_of_birth
+     * @return void
+     */
+    public function setDateOfBirthAttribute(?string $dateOfBirth): void
+    {
+        if (!empty($dateOfBirth)) {
+            $date = DateTime::createFromFormat('d/m/Y', $dateOfBirth)->format('Y-m-d');
+            $date = new DateTime($date);
+            $now = new DateTime();
+            $age = $now->diff($date)->y;
+
+            $this->attributes['age'] = $age;
+            $this->attributes['date_of_birth'] = $dateOfBirth;
+        }
+    }
+
 }

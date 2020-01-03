@@ -186,9 +186,11 @@
 
 {{-- Scripts --}}
 @section('scripts')
-    <script src="{{ asset('assets/js/scripts.js') }}"></script>
     <script>
         $(function() {
+            /**
+             * Input file style
+             */
             $('input[type="file"]').change(function() {
                 $(this)
                     .siblings('.custom-file-label')

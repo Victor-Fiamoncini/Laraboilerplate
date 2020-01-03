@@ -3,6 +3,5 @@
 
 {{-- Content --}}
 @section('master')
-    {{-- Auth Content --}}
     @yield('auth-content')
 @endsection

@@ -8,8 +8,13 @@
     @DashboardHeader
         @slot('title', 'Profile')
     @endDashboardHeader
-    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center bg-gradient-warning h-25">
+    <div class="header pb-8 pt-5 pt-lg-8  align-items-center bg-gradient-warning h-25">
         <span class="mask opacity-8"></span>
+        <div class="container-fluid">
+            @Message
+                @slot('heading', 'h3')
+            @endMessage
+        </div>
         <div class="container-fluid d-flex align-items-center">
             <div class="row">
                 <div class="col-lg-7 col-md-10">
@@ -38,7 +43,49 @@
                         </div>
                     </div>
                     <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                        <div class="d-flex justify-content-between"></div>
+                        <div class="d-flex justify-content-start">
+                            <button
+                                type="button"
+                                class="btn btn-sm btn-primary"
+                                data-toggle="modal"
+                                data-target="#modal"
+                            >
+                                Change
+                            </button>
+                        </div>
+                        @Modal
+                            @slot('title', 'Change your photo')
+                            @slot('background', 'gradient-primary')
+                            @slot('content')
+                                <form
+                                    role="form"
+                                    action="{{ route('dashboard.user.update.photo', $user->id) }}"
+                                    method="POST"
+                                    enctype="multipart/form-data"
+                                >
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="input-group input-group-alternative mb-3">
+                                        <input
+                                            id="cover"
+                                            class="custom-file-input cursor-pointer"
+                                            type="file"
+                                            name="cover"
+                                        >
+                                        <label
+                                            class="custom-file-label border-0 font-size-17 d-flex align-items-center"
+                                            for="cover"
+                                        >
+                                            <i class="fas fa-camera mr-2 color-gray"></i>
+                                            <small class="color-gray">Profile picture</small>
+                                        </label>
+                                    </div>
+                                    <button class="btn btn-success" type="submit">
+                                        Update
+                                    </button>
+                                </form>
+                            @endslot
+                        @endModal
                     </div>
                     <div class="card-body pt-0 pt-md-4">
                         <div class="row">
@@ -48,12 +95,16 @@
                         </div>
                         <div class="text-center">
                             <h3>{{ $user->name }}</h3>
-                            <div class="h5 font-weight-300">
+                            <div class="h5 mt-2">{{ $user->occupation }}</div>
+                            <hr>
+                            <div class="h5 font-weight-600">
+                                @empty(!$user->age)
+                                    {{ $user->age }} years -
+                                @endempty
                                 @empty(!$user->city && !$user->state)
                                     {{ $user->city }}, {{ $user->state }}
                                 @endempty
                             </div>
-                            <div class="h5 mt-4">{{ $user->occupation }}</div>
                         </div>
                     </div>
                 </div>
@@ -465,6 +516,20 @@
                         $('input[name="state"]').val(response.uf)
                     }
                 })
+            })
+
+            /**
+             * Input file style
+             */
+            $('input[type="file"]').change(function() {
+                $(this)
+                    .siblings('.custom-file-label')
+                    .addClass('selected')
+                    .find('small')
+                    .text('File selected')
+                    .addClass('text-success')
+                    .siblings('i')
+                    .addClass('color-success')
             })
         })
     </script>
