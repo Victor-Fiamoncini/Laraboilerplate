@@ -60,10 +60,10 @@
                         <i class="ni ni-single-02 text-yellow"></i> Profile
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ isActive('dashboard.companies') }}">
                     <a
-                        class="nav-link"
-                        href=""
+                        class="nav-link {{ isActive('dashboard.companies') }}"
+                        href="{{ route('dashboard.companies') }}"
                         rel="noopener noreferrer"
                     >
                         <i class="fas fa-building text-info"></i> Companies

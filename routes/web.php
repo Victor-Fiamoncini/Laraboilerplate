@@ -86,5 +86,15 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth'], 'as' => 'dashbo
      * "/dashboard/user/update/photo"
      */
     Route::put('/{user}/update/photo', 'UserController@updatePhoto')->name('user.update.photo');
+
+    /**
+     * "/dashboard/companies"
+     */
+    Route::get('/companies', 'CompanyController@showCompaniesPage')->name('companies');
+
+    /**
+     * "/dashboard/companies/store"
+     */
+    Route::post('/companies/store', 'CompanyController@store')->name('companies.store');
 });
 

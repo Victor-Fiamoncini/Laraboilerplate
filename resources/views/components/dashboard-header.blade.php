@@ -4,7 +4,7 @@
         {{-- Brand --}}
         <a
             class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-            href="{{ route('dashboard.profile') }}"
+            href="{{ route($route) }}"
             rel="noopener noreferrer"
         >
             {{ $title }}
@@ -40,11 +40,19 @@
                 <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
                     <a
                         class="dropdown-item"
-                        href="{{ route('dashboard.profile', Auth::user()->id) }}"
+                        href="{{ route('dashboard.profile') }}"
                         rel="noopener noreferrer"
                     >
                         <i class="ni ni-single-02 text-yellow"></i>
                         <span>Profile</span>
+                    </a>
+                    <a
+                        class="dropdown-item"
+                        href="{{ route('dashboard.companies') }}"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="fas fa-building text-info"></i>
+                        <span>Companies</span>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a
@@ -52,7 +60,7 @@
                         href="{{ route('logout') }}"
                         rel="noopener noreferrer"
                     >
-                        <i class="ni ni-user-run text-dark"></i>
+                        <i class="fas fa-door-open"></i>
                         <span>Logout</span>
                     </a>
                 </div>

@@ -1,5 +1,12 @@
 {{-- Modal --}}
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+<div
+    class="modal fade"
+    id="{{ $name }}"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="modal"
+    aria-hidden="true"
+>
     <div class="modal-dialog modal-danger modal-dialog-centered modal-10" role="document">
         <div class="modal-content bg-{{ $background }}">
             <div class="modal-header">

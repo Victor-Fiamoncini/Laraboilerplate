@@ -7,8 +7,9 @@
     {{-- Header --}}
     @DashboardHeader
         @slot('title', 'Profile')
+        @slot('route', 'dashboard.profile')
     @endDashboardHeader
-    <div class="header pb-8 pt-5 pt-lg-8  align-items-center bg-gradient-warning h-25">
+    <div class="header pb-8 pt-5 pt-lg-8 align-items-center bg-gradient-warning h-25">
         <span class="mask opacity-8"></span>
         <div class="container-fluid">
             {{-- Messages --}}
@@ -49,10 +50,10 @@
                                     href=""
                                     rel="noopener noreferrer"
                                     data-toggle="modal"
-                                    data-target="#modal"
+                                    data-target="#modal-profile-photo"
                                 >
                                     <img
-                                        class="rounded-circle"
+                                        class="rounded-circle shadow"
                                         src="{{ $user->url_cover }}"
                                         alt="{{ $user->name }}"
                                         title="{{ $user->name }}"
@@ -68,44 +69,11 @@
                                 role="button"
                                 class="btn btn-sm btn-primary"
                                 data-toggle="modal"
-                                data-target="#modal"
+                                data-target="#modal-profile-photo"
                             >
                                 Change
                             </a>
                         </div>
-                        @Modal
-                            @slot('title', 'Change your photo')
-                            @slot('background', 'gradient-primary')
-                            @slot('content')
-                                <form
-                                    role="form"
-                                    action="{{ route('dashboard.user.update.photo', $user->id) }}"
-                                    method="POST"
-                                    enctype="multipart/form-data"
-                                >
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="input-group input-group-alternative mb-3">
-                                        <input
-                                            id="cover"
-                                            class="custom-file-input cursor-pointer"
-                                            type="file"
-                                            name="cover"
-                                        >
-                                        <label
-                                            class="custom-file-label border-0 font-size-17 d-flex align-items-center"
-                                            for="cover"
-                                        >
-                                            <i class="fas fa-camera mr-2 color-gray"></i>
-                                            <small class="color-gray">Profile picture</small>
-                                        </label>
-                                    </div>
-                                    <button class="btn btn-default" type="submit">
-                                        Update
-                                    </button>
-                                </form>
-                            @endslot
-                        @endModal
                     </div>
                     <div class="card-body pt-0 pt-md-4">
                         <div class="row">
@@ -508,6 +476,43 @@
         </div>
     </div>
 @endsection
+
+{{-- Modals --}}
+@Modal
+    @slot('name', 'modal-profile-photo')
+    @slot('title', 'Change your photo')
+    @slot('background', 'gradient-primary')
+    @slot('content')
+        <form
+            class="text-center"
+            role="form"
+            action="{{ route('dashboard.user.update.photo', $user->id) }}"
+            method="POST"
+            enctype="multipart/form-data"
+        >
+            @csrf
+            @method('PUT')
+            <div class="input-group input-group-alternative mb-3">
+                <input
+                    id="cover"
+                    class="custom-file-input cursor-pointer"
+                    type="file"
+                    name="cover"
+                >
+                <label
+                    class="custom-file-label border-0 font-size-17 d-flex align-items-center"
+                    for="cover"
+                >
+                    <i class="fas fa-camera mr-2 color-gray"></i>
+                    <small class="color-gray">Profile picture</small>
+                </label>
+            </div>
+            <button class="btn btn-default" type="submit">
+                Update
+            </button>
+        </form>
+    @endslot
+@endModal
 
 {{-- Scripts --}}
 @section('scripts')
