@@ -74,6 +74,42 @@
                                 Change
                             </a>
                         </div>
+                        {{-- Modal photo form --}}
+                        @Modal
+                            @slot('name', 'modal-profile-photo')
+                            @slot('title', 'Change your photo')
+                            @slot('background', 'gradient-primary')
+                            @slot('content')
+                                <form
+                                    class="text-center"
+                                    role="form"
+                                    action="{{ route('dashboard.user.update.photo') }}"
+                                    method="POST"
+                                    enctype="multipart/form-data"
+                                >
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="input-group input-group-alternative mb-3">
+                                        <input
+                                            id="cover"
+                                            class="custom-file-input cursor-pointer"
+                                            type="file"
+                                            name="cover"
+                                        >
+                                        <label
+                                            class="custom-file-label border-0 font-size-17 d-flex align-items-center"
+                                            for="cover"
+                                        >
+                                            <i class="fas fa-camera mr-2 color-gray"></i>
+                                            <small class="color-gray">Profile picture</small>
+                                        </label>
+                                    </div>
+                                    <button class="btn btn-default" type="submit">
+                                        Update
+                                    </button>
+                                </form>
+                            @endslot
+                        @endModal
                     </div>
                     <div class="card-body pt-0 pt-md-4">
                         <div class="row">
@@ -473,45 +509,10 @@
                 </div>
             </div>
         </div>
+        <hr class="mb-0">
+            @include('includes.footer')
     </div>
 @endsection
-
-{{-- Modals --}}
-@Modal
-    @slot('name', 'modal-profile-photo')
-    @slot('title', 'Change your photo')
-    @slot('background', 'gradient-primary')
-    @slot('content')
-        <form
-            class="text-center"
-            role="form"
-            action="{{ route('dashboard.user.update.photo') }}"
-            method="POST"
-            enctype="multipart/form-data"
-        >
-            @csrf
-            @method('PUT')
-            <div class="input-group input-group-alternative mb-3">
-                <input
-                    id="cover"
-                    class="custom-file-input cursor-pointer"
-                    type="file"
-                    name="cover"
-                >
-                <label
-                    class="custom-file-label border-0 font-size-17 d-flex align-items-center"
-                    for="cover"
-                >
-                    <i class="fas fa-camera mr-2 color-gray"></i>
-                    <small class="color-gray">Profile picture</small>
-                </label>
-            </div>
-            <button class="btn btn-default" type="submit">
-                Update
-            </button>
-        </form>
-    @endslot
-@endModal
 
 {{-- Scripts --}}
 @section('scripts')

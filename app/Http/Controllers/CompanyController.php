@@ -6,6 +6,7 @@ use App\Company;
 use App\User;
 use App\Http\Requests\CompanyRegister as CompanyRegisterRequest;
 use Illuminate\Support\Facades\Auth;
+use stdClass;
 
 class CompanyController extends Controller
 {
@@ -16,7 +17,8 @@ class CompanyController extends Controller
      */
     public function showCompaniesPage()
     {
-        return view('pages.companies');
+        $companies = User::find(Auth::user()->id)->companies;
+        return view('pages.companies')->with('companies', $companies);
     }
 
     /**

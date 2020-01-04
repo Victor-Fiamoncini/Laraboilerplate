@@ -72,6 +72,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * "Company" relationship
+     */
+    public function companies()
+    {
+        return $this->hasMany(Company::class, 'user', 'id');
+    }
+
+    /**
      * Accessor "cover"
      *
      * @return string

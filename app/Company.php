@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class Company extends Model
 {
@@ -41,4 +40,11 @@ class Company extends Model
         'neighborhood',
     ];
 
+    /**
+     * "User" relationship
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user', 'id');
+    }
 }
