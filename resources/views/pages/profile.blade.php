@@ -9,7 +9,7 @@
         @slot('title', 'Profile')
         @slot('route', 'dashboard.profile')
     @endDashboardHeader
-    <div class="header pb-8 pt-5 pt-lg-8 align-items-center bg-gradient-warning h-25">
+    <div class="header pb-9 pt-5 pt-lg-8 align-items-center bg-gradient-warning">
         <span class="mask opacity-8"></span>
         <div class="container-fluid">
             {{-- Messages --}}
@@ -31,7 +31,7 @@
         <div class="container-fluid d-flex align-items-center">
             <div class="row">
                 <div class="col-lg-7 col-md-10">
-                    <h1 class="display-2 text-white">Hello {{ $user->name }}</h1>
+                    <h1 class="display-2 text-white">Hello {{ Auth::user()->name }}</h1>
                     <p class="text-white mt-0 mb-5">
                         This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks
                     </p>
@@ -54,9 +54,9 @@
                                 >
                                     <img
                                         class="rounded-circle shadow"
-                                        src="{{ $user->url_cover }}"
-                                        alt="{{ $user->name }}"
-                                        title="{{ $user->name }}"
+                                        src="{{ Auth::user()->url_cover }}"
+                                        alt="{{ Auth::user()->name }}"
+                                        title="{{ Auth::user()->name }}"
                                     >
                                 </a>
                             </div>
@@ -82,25 +82,25 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <h3>{{ $user->name }}</h3>
+                            <h3>{{ Auth::user()->name }}</h3>
                             <div class="h5 mt-3">
-                                @empty(!$user->occupation)
+                                @empty(!Auth::user()->occupation)
                                     <i class="ni ni-briefcase-24 mr-1"></i>
-                                    {{ $user->occupation }}
+                                    {{ Auth::user()->occupation }}
                                 @endempty
                             </div>
                             <div class="h5 font-weight-600">
-                                @empty(!$user->age)
-                                    {{ $user->age }} years
+                                @empty(!Auth::user()->age)
+                                    {{ Auth::user()->age }} years
                                 @endempty
-                                @empty(!$user->city && !$user->state)
-                                    - {{ $user->city }}, {{ $user->state }}
+                                @empty(!Auth::user()->city && !Auth::user()->state)
+                                    - {{ Auth::user()->city }}, {{ Auth::user()->state }}
                                 @endempty
                             </div>
                             <p>
-                                @empty(!$user->description)
+                                @empty(!Auth::user()->description)
                                     <hr>
-                                    {{ $user->description }}
+                                    {{ Auth::user()->description }}
                                 @endempty
                             </p>
                         </div>
@@ -119,12 +119,11 @@
                     <div class="card-body">
                         <form
                             role="form"
-                            action="{{ route('dashboard.user.update', $user->id) }}"
+                            action="{{ route('dashboard.user.update') }}"
                             method="POST"
                         >
                             @csrf
                             @method('PUT')
-                            <input type="hidden" name="id" value="{{ $user->id }}">
                             <h6 class="heading-small text-muted mb-4">User information</h6>
                             <div>
                                 <div class="row">
@@ -139,7 +138,7 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Username"
                                                 name="name"
-                                                value="{{ $user->name ?? old('name') }}"
+                                                value="{{ Auth::user()->name ?? old('name') }}"
                                             >
                                             @if ($errors->has('name'))
                                                 <small class="form-text text-danger">
@@ -159,7 +158,7 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Email"
                                                 name="email"
-                                                value="{{ $user->email ?? old('email') }}"
+                                                value="{{ Auth::user()->email ?? old('email') }}"
                                             >
                                             @if ($errors->has('email'))
                                                 <small class="form-text text-danger">
@@ -221,7 +220,7 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Date of birth"
                                                 name="date_of_birth"
-                                                value="{{ $user->date_of_birth ?? old('date_of_birth') }}"
+                                                value="{{ Auth::user()->date_of_birth ?? old('date_of_birth') }}"
                                             >
                                             @if ($errors->has('date_of_birth'))
                                                 <small class="form-text text-danger">
@@ -247,7 +246,7 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Zipcode"
                                                 name="zipcode"
-                                                value="{{ $user->zipcode ?? old('zipcode') }}"
+                                                value="{{ Auth::user()->zipcode ?? old('zipcode') }}"
                                             >
                                             <small class="form-text text-danger">
                                                 @if ($errors->has('zipcode'))
@@ -267,7 +266,7 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Street"
                                                 name="street"
-                                                value="{{ $user->street ?? old('street') }}"
+                                                value="{{ Auth::user()->street ?? old('street') }}"
                                             >
                                             @if ($errors->has('street'))
                                                 <small class="form-text text-danger">
@@ -289,7 +288,7 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Number"
                                                 name="number"
-                                                value="{{ $user->number ?? old('number') }}"
+                                                value="{{ Auth::user()->number ?? old('number') }}"
                                             >
                                             @if ($errors->has('number'))
                                                 <small class="form-text text-danger">
@@ -309,7 +308,7 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Complement"
                                                 name="complement"
-                                                value="{{ $user->complement ?? old('complement') }}"
+                                                value="{{ Auth::user()->complement ?? old('complement') }}"
                                             >
                                             @if ($errors->has('complement'))
                                                 <small class="form-text text-danger">
@@ -331,7 +330,7 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Neighborhood"
                                                 name="neighborhood"
-                                                value="{{ $user->neighborhood ?? old('neighborhood') }}"
+                                                value="{{ Auth::user()->neighborhood ?? old('neighborhood') }}"
                                             >
                                             @if ($errors->has('neighborhood'))
                                                 <small class="form-text text-danger">
@@ -351,7 +350,7 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="City"
                                                 name="city"
-                                                value="{{ $user->city ?? old('city') }}"
+                                                value="{{ Auth::user()->city ?? old('city') }}"
                                             >
                                             @if ($errors->has('city'))
                                                 <small class="form-text text-danger">
@@ -373,7 +372,7 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="State"
                                                 name="state"
-                                                value="{{ $user->state ?? old('state') }}"
+                                                value="{{ Auth::user()->state ?? old('state') }}"
                                             >
                                             @if ($errors->has('state'))
                                                 <small class="form-text text-danger">
@@ -399,7 +398,7 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Telephone"
                                                 name="telephone"
-                                                value="{{ $user->telephone ?? old('telephone') }}"
+                                                value="{{ Auth::user()->telephone ?? old('telephone') }}"
                                             >
                                             @if ($errors->has('telephone'))
                                                 <small class="form-text text-danger">
@@ -419,7 +418,7 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Cellphone"
                                                 name="cell"
-                                                value="{{ $user->cell ?? old('cell') }}"
+                                                value="{{ Auth::user()->cell ?? old('cell') }}"
                                             >
                                             @if ($errors->has('cell'))
                                                 <small class="form-text text-danger">
@@ -443,7 +442,7 @@
                                         class="form-control form-control-alternative"
                                         placeholder="Occupation"
                                         name="occupation"
-                                        value="{{ $user->occupation ?? old('occupation') }}"
+                                        value="{{ Auth::user()->occupation ?? old('occupation') }}"
                                     >
                                     @if ($errors->has('description'))
                                         <small class="form-text text-danger">
@@ -458,7 +457,7 @@
                                         class="form-control form-control-alternative"
                                         placeholder="A brief description about you"
                                         name="description"
-                                    >{{ $user->description ?? old('description') }}</textarea>
+                                    >{{ Auth::user()->description ?? old('description') }}</textarea>
                                     @if ($errors->has('description'))
                                         <small class="form-text text-danger">
                                             {{ $errors->first('description') }}
@@ -486,7 +485,7 @@
         <form
             class="text-center"
             role="form"
-            action="{{ route('dashboard.user.update.photo', $user->id) }}"
+            action="{{ route('dashboard.user.update.photo') }}"
             method="POST"
             enctype="multipart/form-data"
         >
@@ -526,46 +525,6 @@
             $('input[name="zipcode"]').mask('00000-000')
             $('input[name="cell"]').mask('(00) 00000-0000')
             $('input[name="telephone"]').mask('0000-0000')
-
-            /**
-             * Autocomplete address infos
-             */
-            $('input[name="zipcode"]').focusout('mouseleave', function() {
-                const input = $(this)
-                input.siblings('small').hide()
-
-                $.ajax({
-                    url: `https://viacep.com.br/ws/${input.val()}/json/`,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: response => {
-                        if (response.erro) {
-                            input.siblings('small').fadeIn(300).text('Invalid zipcode')
-                            return
-                        }
-                        input.siblings('small').fadeOut(300).text('')
-                        $('input[name="street"]').val(response.logradouro)
-                        $('input[name="complement"]').val(response.complemento)
-                        $('input[name="neighborhood"]').val(response.bairro)
-                        $('input[name="city"]').val(response.localidade)
-                        $('input[name="state"]').val(response.uf)
-                    }
-                })
-            })
-
-            /**
-             * Input file style
-             */
-            $('input[type="file"]').change(function() {
-                $(this)
-                    .siblings('.custom-file-label')
-                    .addClass('selected')
-                    .find('small')
-                    .text('File selected')
-                    .addClass('text-success')
-                    .siblings('i')
-                    .addClass('color-success')
-            })
         })
     </script>
 @endsection

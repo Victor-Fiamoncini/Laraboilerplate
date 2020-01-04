@@ -56,15 +56,15 @@
 @Modal
     @slot('name', 'modal-company-create')
     @slot('title', 'Register a new company')
-    @slot('background', 'gradient-warning')
+    @slot('background', 'gradient-primary')
     @slot('content')
         <form
+            name="company-create"
             role="form"
-            action="{{ route('dashboard.companies.store', $user->id) }}"
+            action="{{ route('dashboard.companies.store') }}"
             method="POST"
         >
             @csrf
-            <input type="hidden" name="id" value="{{ $user->id }}">
             <h6 class="heading-small text-muted mb-4 text-white">Basic information</h6>
             <div>
                 <div class="row">
@@ -82,7 +82,7 @@
                                 value="{{ old('name') }}"
                             >
                             @if ($errors->has('social_name'))
-                                <small class="form-text text-danger">
+                                <small class="form-text text-white font-weight-bold">
                                     {{ $errors->first('social_name') }}
                                 </small>
                             @endif
@@ -102,7 +102,7 @@
                                 value="{{ old('alias_name') }}"
                             >
                             @if ($errors->has('alias_name'))
-                                <small class="form-text text-danger">
+                                <small class="form-text text-white font-weight-bold">
                                     {{ $errors->first('alias_name') }}
                                 </small>
                             @endif
@@ -123,7 +123,7 @@
                                 name="document_company"
                             >
                             @if ($errors->has('document_company'))
-                                <small class="form-text text-danger">
+                                <small class="form-text text-white font-weight-bold">
                                     {{ $errors->first('document_company') }}
                                 </small>
                             @endif
@@ -142,7 +142,7 @@
                                 name="document_company_secondary"
                             >
                             @if ($errors->has('document_company_secondary'))
-                                <small class="form-text text-danger">
+                                <small class="form-text text-white font-weight-bold">
                                     {{ $errors->first('document_company_secondary') }}
                                 </small>
                             @endif
@@ -167,7 +167,7 @@
                                 name="zipcode"
                                 value="{{ old('zipcode') }}"
                             >
-                            <small class="form-text text-danger">
+                            <small class="form-text text-white font-weight-bold">
                                 @if ($errors->has('zipcode'))
                                     {{ $errors->first('zipcode') }}
                                 @endif
@@ -188,7 +188,7 @@
                                 value="{{ old('street') }}"
                             >
                             @if ($errors->has('street'))
-                                <small class="form-text text-danger">
+                                <small class="form-text text-white font-weight-bold">
                                     {{ $errors->first('street') }}
                                 </small>
                             @endif
@@ -210,7 +210,7 @@
                                 value="{{ old('number') }}"
                             >
                             @if ($errors->has('number'))
-                                <small class="form-text text-danger">
+                                <small class="form-text text-white font-weight-bold">
                                     {{ $errors->first('number') }}
                                 </small>
                             @endif
@@ -230,7 +230,7 @@
                                 value="{{ old('complement') }}"
                             >
                             @if ($errors->has('complement'))
-                                <small class="form-text text-danger">
+                                <small class="form-text text-white font-weight-bold">
                                     {{ $errors->first('complement') }}
                                 </small>
                             @endif
@@ -252,7 +252,7 @@
                                 value="{{ old('neighborhood') }}"
                             >
                             @if ($errors->has('neighborhood'))
-                                <small class="form-text text-danger">
+                                <small class="form-text text-white font-weight-bold">
                                     {{ $errors->first('neighborhood') }}
                                 </small>
                             @endif
@@ -272,7 +272,7 @@
                                 value="{{ old('city') }}"
                             >
                             @if ($errors->has('city'))
-                                <small class="form-text text-danger">
+                                <small class="form-text text-white font-weight-bold">
                                     {{ $errors->first('city') }}
                                 </small>
                             @endif
@@ -294,7 +294,7 @@
                                 value="{{ old('state') }}"
                             >
                             @if ($errors->has('state'))
-                                <small class="form-text text-danger">
+                                <small class="form-text text-white font-weight-bold">
                                     {{ $errors->first('state') }}
                                 </small>
                             @endif
@@ -302,7 +302,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-default">
                 Register
             </button>
         </form>
@@ -315,38 +315,21 @@
     <script>
         $(function() {
             /**
-             * Form inputs masks
+             * Mask for form inputs
              */
-            $('input[name="date_of_birth"]').mask('00/00/0000')
             $('input[name="zipcode"]').mask('00000-000')
-            $('input[name="cell"]').mask('(00) 00000-0000')
-            $('input[name="telephone"]').mask('0000-0000')
+            $('input[name="document_company"]').mask('00.000.000/0000-00', { reverse: true })
+            $('input[name="document_company_secondary"]').mask('99.999.999-9')
 
-            /**
-             * Autocomplete address infos
-             */
-            $('input[name="zipcode"]').focusout('mouseleave', function() {
-                const input = $(this)
-                input.siblings('small').hide()
-
-                $.ajax({
-                    url: `https://viacep.com.br/ws/${input.val()}/json/`,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: response => {
-                        if (response.erro) {
-                            input.siblings('small').fadeIn(300).text('Invalid zipcode')
-                            return
-                        }
-                        input.siblings('small').fadeOut(300).text('')
-                        $('input[name="street"]').val(response.logradouro)
-                        $('input[name="complement"]').val(response.complemento)
-                        $('input[name="neighborhood"]').val(response.bairro)
-                        $('input[name="city"]').val(response.localidade)
-                        $('input[name="state"]').val(response.uf)
-                    }
-                })
+            $('form[name="company-create"]').submit(function() {
+                $(this).data('submited', true)
             })
         })
     </script>
+
+    @if ($errors->any())
+        <script>
+            $('#modal-company-create').modal('show')
+        </script>
+    @endif
 @endsection

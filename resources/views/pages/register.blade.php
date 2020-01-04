@@ -190,24 +190,3 @@
         @include('includes.footer')
     </div>
 @endsection
-
-{{-- Scripts --}}
-@section('scripts')
-    <script>
-        $(function() {
-            /**
-             * Input file style
-             */
-            $('input[type="file"]').change(function() {
-                $(this)
-                    .siblings('.custom-file-label')
-                    .addClass('selected')
-                    .find('small')
-                    .text('File selected')
-                    .addClass('text-success')
-                    .siblings('i')
-                    .addClass('color-success')
-            })
-        })
-    </script>
-@endsection

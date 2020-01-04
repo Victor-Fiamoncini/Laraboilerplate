@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     {{-- Others --}}
     <link
-        rel="icon"
-        type="image/png"
+        rel="shortcut icon"
+        type='image/x-icon'
         href="{{ asset('assets/images/favicon.png') }}"
     >
     <title>@yield('title')</title>
@@ -27,7 +27,7 @@
     <script src="{{ asset('assets/js/plugins/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/js/argon-dashboard.min.js?v=1.1.0') }}"></script>
+    <script src="{{ asset('assets/js/argon-dashboard.min.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
     {{-- Custom JS --}}
     @yield('scripts')

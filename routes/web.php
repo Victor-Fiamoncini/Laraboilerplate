@@ -80,12 +80,12 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth'], 'as' => 'dashbo
     /**
      * "/dashboard/user/update"
      */
-    Route::put('/{user}/update', 'UserController@update')->name('user.update');
+    Route::put('/user/update', 'UserController@update')->name('user.update');
 
     /**
      * "/dashboard/user/update/photo"
      */
-    Route::put('/{user}/update/photo', 'UserController@updatePhoto')->name('user.update.photo');
+    Route::put('/user/update/photo', 'UserController@updatePhoto')->name('user.update.photo');
 
     /**
      * "/dashboard/companies"

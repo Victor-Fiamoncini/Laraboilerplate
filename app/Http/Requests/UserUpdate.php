@@ -26,8 +26,8 @@ class UserUpdate extends FormRequest
     {
         return [
             'name' => 'min:3|max:255',
-            'email' => !empty($this->request->all()['id'])
-                ? 'email|unique:users,email,' . $this->request->all()['id']
+            'email' => !empty(Auth::user()->id)
+                ? 'email|unique:users,email,' . Auth::user()->id
                 : 'email|unique:users,email',
             'password' => 'same:password_confirmation',
             'password_confirmation' => '',

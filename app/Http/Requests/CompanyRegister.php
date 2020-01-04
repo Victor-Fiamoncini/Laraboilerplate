@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyRegister extends FormRequest
 {
@@ -13,7 +14,7 @@ class CompanyRegister extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -24,7 +25,17 @@ class CompanyRegister extends FormRequest
     public function rules()
     {
         return [
-            //
+            'social_name' => 'required|max:255',
+            'alias_name' => 'required|max:255',
+            'document_company' => 'required|min:14|max:18',
+            'document_company_secondary' => 'required|min:9|max:12',
+            'zipcode' => 'required|max:255',
+            'street' => 'required|max:255',
+            'city' => 'required|max:255',
+            'state' => 'required|max:255',
+            'number' => 'max:255',
+            'complement' => 'required|max:255',
+            'neighborhood' => 'required|max:255',
         ];
     }
 }

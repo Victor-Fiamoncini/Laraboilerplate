@@ -50,18 +50,19 @@ class UserController extends Controller
      */
     public function showProfilePage()
     {
-        return view('pages.profile')->with('user', Auth::user());
+        return view('pages.profile');
     }
 
     /**
      * Update the specified user in storage
      *
      * @param App\Http\Requests\UserUpdate $userUpdateRequest
-     * @param \App\User $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UserUpdateRequest $userUpdateRequest, User $user)
+    public function update(UserUpdateRequest $userUpdateRequest)
     {
+        $user = User::where('id', Auth::user()->id)->first();
+
         if (empty($userUpdateRequest->password)) {
             $user->update($userUpdateRequest->except('password'));
         } else {
@@ -78,10 +79,9 @@ class UserController extends Controller
      * Update user photo
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\User $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function updatePhoto(Request $request, User $user)
+    public function updatePhoto(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'cover' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048'
@@ -90,6 +90,8 @@ class UserController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
+
+        $user = User::where('id', Auth::user()->id)->first();
 
         Storage::delete($user->cover);
 

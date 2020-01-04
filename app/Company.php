@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Company extends Model
 {
@@ -39,4 +40,5 @@ class Company extends Model
         'complement',
         'neighborhood',
     ];
+
 }
