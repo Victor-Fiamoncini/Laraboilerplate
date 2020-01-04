@@ -73,6 +73,8 @@ class User extends Authenticatable
 
     /**
      * "Company" relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function companies()
     {
@@ -131,4 +133,14 @@ class User extends Authenticatable
         }
     }
 
+    /**
+     * Remove special chars from field
+     *
+     * @param string|null $field
+     * @return string
+     */
+    private function clearField(?string $field): string
+    {
+        return !empty($field) ? str_replace(['.', '-', ';', '_', ' ', '/'], '', $field) : '';
+    }
 }
