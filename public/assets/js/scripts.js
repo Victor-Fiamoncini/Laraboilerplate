@@ -76,4 +76,14 @@ $(function() {
             .siblings('i')
             .addClass('color-success')
     })
+
+    /**
+     * Mask for form inputs
+     */
+    $('input[name="date_of_birth"]').mask('00/00/0000')
+    $('input[name="zipcode"]').mask('00000-000')
+    $('input[name="cell"]').mask('(00) 00000-0000')
+    $('input[name="telephone"]').mask('0000-0000')
+    $('input[name="document_company"]').mask('00.000.000/0000-00', { reverse: true })
+    $('input[name="document_company_secondary"]').mask('99.999.999-9')
 })

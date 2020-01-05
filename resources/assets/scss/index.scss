@@ -53,9 +53,20 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: $main-color;
+    background: lighten($main-darken-color, $amount: 10);
     &:hover {
-        background: darken($main-color, 8);
+        background: lighten($main-darken-color, $amount: 14);
+    }
+}
+
+/**
+ * Forms & inputs
+ * ===============================================================================
+ */
+ input[type="file"] ~ label {
+    &:after {
+        padding-top: 12px;
+        font-size: 0.938rem;
     }
 }
 
@@ -64,5 +75,4 @@ body {
  * ===============================================================================
  */
 @import 'classes';
-@import 'register';
 @import 'dashboard';

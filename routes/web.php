@@ -96,5 +96,15 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth'], 'as' => 'dashbo
      * "/dashboard/companies/store"
      */
     Route::post('/companies/store', 'CompanyController@store')->name('companies.store');
+
+    /**
+     * "/dashboard/companies/{company}/edit"
+     */
+    Route::get('/companies/{company}/edit', 'CompanyController@showCompanyEditPage')->name('companies.edit');
+
+    /**
+     * "/dashboard/companies/{company}/update"
+     */
+    Route::put('/companies/{company}/update', 'CompanyController@update')->name('companies.update');
 });
 

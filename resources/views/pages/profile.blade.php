@@ -9,7 +9,7 @@
         @slot('title', 'Profile')
         @slot('route', 'dashboard.profile')
     @endDashboardHeader
-    <div class="header pb-9 pt-5 pt-lg-8 align-items-center bg-gradient-warning">
+    <div class="header pb-9 pt-5 pt-lg-8 align-items-center bg-gradient-primary">
         <span class="mask opacity-8"></span>
         <div class="container-fluid">
             {{-- Messages --}}
@@ -66,6 +66,7 @@
                         <div class="d-flex justify-content-start">
                             <a
                                 href=""
+                                rel="noopener noreferrer"
                                 role="button"
                                 class="btn btn-sm btn-primary"
                                 data-toggle="modal"
@@ -510,22 +511,6 @@
             </div>
         </div>
         <hr class="mb-0">
-            @include('includes.footer')
+        @include('includes.footer')
     </div>
-@endsection
-
-{{-- Scripts --}}
-@section('scripts')
-    <script src="{{ asset('assets/js/plugins/jquery-mask/jquery.mask.min.js') }}"></script>
-    <script>
-        $(function() {
-            /**
-             * Form inputs masks
-             */
-            $('input[name="date_of_birth"]').mask('00/00/0000')
-            $('input[name="zipcode"]').mask('00000-000')
-            $('input[name="cell"]').mask('(00) 00000-0000')
-            $('input[name="telephone"]').mask('0000-0000')
-        })
-    </script>
 @endsection

@@ -51,6 +51,22 @@ class Company extends Model
     }
 
     /**
+     * Accessor "document_company"
+     *
+     * @param string $documentCompany
+     * @return string
+     */
+    public function getDocumentCompanyAttribute(string $documentCompany): string
+    {
+        return
+            substr($documentCompany, 0, 2) . '.' .
+            substr($documentCompany, 2, 3) . '.' .
+            substr($documentCompany, 5, 3) . '/' .
+            substr($documentCompany, 8, 4) . '-' .
+            substr($documentCompany, 12, 2);
+    }
+
+    /**
      * Mutator "document_company"
      *
      * @param string|null $documentCompany
@@ -70,6 +86,17 @@ class Company extends Model
     public function setDocumentCompanySecondaryAttribute(?string $documentCompanySecondary): void
     {
         $this->attributes['document_company_secondary'] = $this->clearField($documentCompanySecondary);
+    }
+
+    /**
+     * Accessor "zipcode"
+     *
+     * @param string $documentCompany
+     * @return string
+     */
+    public function getZipcodeAttribute(string $zipcode): string
+    {
+        return substr($zipcode, 0, 5) . '-' . substr($zipcode, 5, 3);
     }
 
     /**

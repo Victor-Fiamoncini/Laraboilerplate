@@ -80,7 +80,7 @@
                 </li>
             </ul>
             <hr class="mb-0 my-3">
-            <h6 class="navbar-heading text-muted">Util Links</h6>
+            <h6 class="navbar-heading text-muted">Useful Links</h6>
             <ul class="navbar-nav mb-md-3">
                 <li class="nav-item">
                     <a

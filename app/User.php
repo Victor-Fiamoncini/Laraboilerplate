@@ -115,7 +115,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Mutator "date_of_birth", set "age" attribute
+     * Mutator "date_of_birth", fill "age" attribute
      *
      * @param string|null $date_of_birth
      * @return null
@@ -131,6 +131,28 @@ class User extends Authenticatable
             $this->attributes['age'] = $age;
             $this->attributes['date_of_birth'] = $dateOfBirth;
         }
+    }
+
+    /**
+     * Accessor "zipcode"
+     *
+     * @param string $documentCompany
+     * @return string
+     */
+    public function getZipcodeAttribute(string $zipcode): string
+    {
+        return substr($zipcode, 0, 5) . '-' . substr($zipcode, 5, 3);
+    }
+
+    /**
+     * Mutator "zipcode"
+     *
+     * @param string|null $zipcode
+     * @return null
+     */
+    public function setZipcodeAttribute(?string $zipcode): void
+    {
+        $this->attributes['zipcode'] = $this->clearField($zipcode);
     }
 
     /**

@@ -2,14 +2,14 @@
 @extends('templates.dashboard-master')
 
 {{-- Content --}}
-@section('title', 'Companies')
+@section('title', 'Company Edit')
 @section('dashboard-content')
     {{-- Header --}}
     @DashboardHeader
         @slot('title', 'Companies')
         @slot('route', 'dashboard.companies')
     @endDashboardHeader
-    <div class="header pb-8 pt-5 pt-lg-8 align-items-center bg-gradient-info">
+    <div class="header pb-8 pt-5 pt-lg-8 align-items-center bg-gradient-green">
         <span class="mask opacity-8"></span>
         <div class="container-fluid">
             {{-- Messages --}}
@@ -24,9 +24,9 @@
         <div class="container-fluid d-flex align-items-center">
             <div class="row">
                 <div class="col-lg-7 col-md-10">
-                    <h1 class="display-2 text-white">Companies</h1>
+                    <h1 class="text-white display-2">{{ $company->social_name }}</h1>
                     <p class="text-white mt-0 mb-5">
-                        This is your companies page. Here you can manage the data of your companies as well as your employees through the available form and browsing popups.
+                        This is your company edit page. Here you can manage the data of {{ $company->social_name }} through the available form.
                     </p>
                 </div>
             </div>
@@ -35,88 +35,36 @@
     <div class="container-fluid mt--7 bg-light-outer">
         <div class="row">
             <div class="col-12">
+                <a
+                    class="btn btn-primary mb-3 mt--3"
+                    href="{{ route('dashboard.companies') }}"
+                    rel="noopener noreferrer"
+                >
+                    Go back
+                </a>
                 <div class="card bg-secondary shadow">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
-                            <div class="col">
-                                <h3 class="mb-0">Your companies</h3>
-                            </div>
-                            <div class="col text-right">
-                                <button
-                                    type="button"
-                                    class="btn btn-success"
-                                    data-toggle="modal"
-                                    data-target="#modal-company-create"
-                                >
-                                    Register a new company
-
+                            <div class="col-8">
+                                <h3 class="mb-0">Update your company</h3>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        @if ($companies)
-                            @forelse ($companies as $company)
-                                <div class="card shadow bg-primary">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col-3">
-                                                <strong class="text-white">
-                                                    {{ $company->social_name }}
-                                                </strong>
-                                            </div>
-                                            <div class="col-3">
-                                                <strong class="text-white">
-                                                    {{ $company->document_company }}
-                                                </strong>
-                                            </div>
-                                            <div class="col-2"></div>
-                                            <div class="col-2 p-0">
-                                                <a
-                                                    href="{{ route('dashboard.companies.edit', $company->id) }}"
-                                                    class="btn btn-default"
-                                                    rel="noopener noreferrer"
-                                                >
-                                                    <i class="ni ni-settings"></i> Settings
-                                                </a>
-                                            </div>
-                                            <div class="col-2 p-0">
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-default"
-                                                    data-toggle="modal"
-                                                    data-target="#modal-company-employees"
-                                                >
-                                                    <i class="fas fa-users"></i> Employees
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @else
-                            <h3>No companies currently registered</h3>
-                        @endif
-                    </div>
-                </div>
-                {{-- Modals --}}
-                @Modal
-                    @slot('name', 'modal-company-create')
-                    @slot('title', 'Register a new company')
-                    @slot('background', 'gradient-primary')
-                    @slot('content')
                         <form
-                            name="company-create"
+                            name="company-update"
                             role="form"
-                            action="{{ route('dashboard.companies.store') }}"
+                            action="{{ route('dashboard.companies.update', $company->id) }}"
                             method="POST"
                         >
                             @csrf
-                            <h6 class="heading-small text-muted mb-4 text-white">Basic information</h6>
+                            @method('PUT')
+                            <h6 class="heading-small text-muted mb-4">Basic information</h6>
                             <div>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group focused">
-                                            <label class="form-control-label text-white" for="social_name">
+                                            <label class="form-control-label" for="social_name">
                                                 Social Name
                                             </label>
                                             <input
@@ -125,10 +73,10 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Social Name"
                                                 name="social_name"
-                                                value="{{ old('name') }}"
+                                                value="{{ old('social_name') ?? $company->social_name }}"
                                             >
                                             @if ($errors->has('social_name'))
-                                                <small class="form-text text-white font-weight-bold">
+                                                <small class="form-text font-weight-bold">
                                                     {{ $errors->first('social_name') }}
                                                 </small>
                                             @endif
@@ -136,7 +84,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label text-white" for="alias_name">
+                                            <label class="form-control-label" for="alias_name">
                                                 Alias Name
                                             </label>
                                             <input
@@ -145,10 +93,10 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Alias Name"
                                                 name="alias_name"
-                                                value="{{ old('alias_name') }}"
+                                                value="{{ old('alias_name') ?? $company->alias_name }}"
                                             >
                                             @if ($errors->has('alias_name'))
-                                                <small class="form-text text-white font-weight-bold">
+                                                <small class="form-text font-weight-bold">
                                                     {{ $errors->first('alias_name') }}
                                                 </small>
                                             @endif
@@ -158,7 +106,7 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group focused">
-                                            <label class="form-control-label text-white" for="document_company">
+                                            <label class="form-control-label" for="document_company">
                                                 Document
                                             </label>
                                             <input
@@ -167,9 +115,10 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Document"
                                                 name="document_company"
+                                                value="{{ old('document_company') ?? $company->document_company }}"
                                             >
                                             @if ($errors->has('document_company'))
-                                                <small class="form-text text-white font-weight-bold">
+                                                <small class="form-text font-weight-bold">
                                                     {{ $errors->first('document_company') }}
                                                 </small>
                                             @endif
@@ -177,7 +126,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group focused">
-                                            <label class="form-control-label text-white" for="document_company_secondary">
+                                            <label class="form-control-label" for="document_company_secondary">
                                                 Document Secondary
                                             </label>
                                             <input
@@ -186,9 +135,10 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Document Secondary"
                                                 name="document_company_secondary"
+                                                value="{{ old('document_company_secondary') ?? $company->document_company_secondary }}"
                                             >
                                             @if ($errors->has('document_company_secondary'))
-                                                <small class="form-text text-white font-weight-bold">
+                                                <small class="form-text font-weight-bold">
                                                     {{ $errors->first('document_company_secondary') }}
                                                 </small>
                                             @endif
@@ -197,12 +147,12 @@
                                 </div>
                             </div>
                             <hr class="my-4">
-                            <h6 class="heading-small text-muted mb-4 text-white">Address information</h6>
+                            <h6 class="heading-small text-muted mb-4">Address information</h6>
                             <div>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group focused">
-                                            <label class="form-control-label text-white" for="zipcode">
+                                            <label class="form-control-label" for="zipcode">
                                                 Zipcode
                                             </label>
                                             <input
@@ -211,9 +161,9 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Zipcode"
                                                 name="zipcode"
-                                                value="{{ old('zipcode') }}"
+                                                value="{{ old('zipcode') ?? $company->zipcode }}"
                                             >
-                                            <small class="form-text text-white font-weight-bold">
+                                            <small class="form-text font-weight-bold">
                                                 @if ($errors->has('zipcode'))
                                                     {{ $errors->first('zipcode') }}
                                                 @endif
@@ -222,7 +172,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group focused">
-                                            <label class="form-control-label text-white" for="street">
+                                            <label class="form-control-label" for="street">
                                                 Street
                                             </label>
                                             <input
@@ -231,10 +181,10 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Street"
                                                 name="street"
-                                                value="{{ old('street') }}"
+                                                value="{{ old('street') ?? $company->street }}"
                                             >
                                             @if ($errors->has('street'))
-                                                <small class="form-text text-white font-weight-bold">
+                                                <small class="form-text font-weight-bold">
                                                     {{ $errors->first('street') }}
                                                 </small>
                                             @endif
@@ -244,7 +194,7 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group focused">
-                                            <label class="form-control-label text-white" for="number">
+                                            <label class="form-control-label" for="number">
                                                 Number
                                             </label>
                                             <input
@@ -253,10 +203,10 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Number"
                                                 name="number"
-                                                value="{{ old('number') }}"
+                                                value="{{ old('number') ?? $company->number }}"
                                             >
                                             @if ($errors->has('number'))
-                                                <small class="form-text text-white font-weight-bold">
+                                                <small class="form-text font-weight-bold">
                                                     {{ $errors->first('number') }}
                                                 </small>
                                             @endif
@@ -264,7 +214,7 @@
                                     </div>
                                     <div class="col-lg-8">
                                         <div class="form-group focused">
-                                            <label class="form-control-label text-white" for="complement">
+                                            <label class="form-control-label" for="complement">
                                                 Complement
                                             </label>
                                             <input
@@ -273,10 +223,10 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Complement"
                                                 name="complement"
-                                                value="{{ old('complement') }}"
+                                                value="{{ old('complement') ?? $company->complement }}"
                                             >
                                             @if ($errors->has('complement'))
-                                                <small class="form-text text-white font-weight-bold">
+                                                <small class="form-text font-weight-bold">
                                                     {{ $errors->first('complement') }}
                                                 </small>
                                             @endif
@@ -286,7 +236,7 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group focused">
-                                            <label class="form-control-label text-white" for="neighborhood">
+                                            <label class="form-control-label" for="neighborhood">
                                                 Neighborhood
                                             </label>
                                             <input
@@ -295,10 +245,10 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="Neighborhood"
                                                 name="neighborhood"
-                                                value="{{ old('neighborhood') }}"
+                                                value="{{ old('neighborhood') ?? $company->neighborhood }}"
                                             >
                                             @if ($errors->has('neighborhood'))
-                                                <small class="form-text text-white font-weight-bold">
+                                                <small class="form-text font-weight-bold">
                                                     {{ $errors->first('neighborhood') }}
                                                 </small>
                                             @endif
@@ -306,7 +256,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group focused">
-                                            <label class="form-control-label text-white" for="city">
+                                            <label class="form-control-label" for="city">
                                                 City
                                             </label>
                                             <input
@@ -315,10 +265,10 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="City"
                                                 name="city"
-                                                value="{{ old('city') }}"
+                                                value="{{ old('city') ?? $company->city }}"
                                             >
                                             @if ($errors->has('city'))
-                                                <small class="form-text text-white font-weight-bold">
+                                                <small class="form-text font-weight-bold">
                                                     {{ $errors->first('city') }}
                                                 </small>
                                             @endif
@@ -328,7 +278,7 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group focused">
-                                            <label class="form-control-label text-white" for="state">
+                                            <label class="form-control-label" for="state">
                                                 State
                                             </label>
                                             <input
@@ -337,10 +287,10 @@
                                                 class="form-control form-control-alternative"
                                                 placeholder="State"
                                                 name="state"
-                                                value="{{ old('state') }}"
+                                                value="{{ old('state') ?? $company->state }}"
                                             >
                                             @if ($errors->has('state'))
-                                                <small class="form-text text-white font-weight-bold">
+                                                <small class="form-text font-weight-bold">
                                                     {{ $errors->first('state') }}
                                                 </small>
                                             @endif
@@ -348,24 +298,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-default">
-                                Register
+                            <button type="submit" class="btn btn-primary">
+                                Update
                             </button>
                         </form>
-                    @endslot
-                @endModal
+                    </div>
+                </div>
             </div>
         </div>
         <hr class="mb-0">
         @include('includes.footer')
     </div>
-@endsection
-
-{{-- Scripts --}}
-@section('scripts')
-    @if ($errors->any())
-        <script>
-            $('#modal-company-create').modal('show')
-        </script>
-    @endif
 @endsection

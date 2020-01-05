@@ -60,7 +60,7 @@
                         href="{{ route('logout') }}"
                         rel="noopener noreferrer"
                     >
-                        <i class="fas fa-door-open"></i>
+                        <i class="ni ni-user-run"></i>
                         <span>Logout</span>
                     </a>
                 </div>
