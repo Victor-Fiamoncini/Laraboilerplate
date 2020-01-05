@@ -14,7 +14,7 @@ class AlterUsersTableInsertGoogleCredential extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('google_id')->nullable();
+            $table->string('google_id')->unique()->nullable();
         });
     }
 

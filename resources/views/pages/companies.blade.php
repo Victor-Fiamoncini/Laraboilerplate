@@ -54,7 +54,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        @if ($companies)
+                        @if (count($companies) !== 0)
                             @forelse ($companies as $company)
                                 <div class="card shadow bg-primary">
                                     <div class="card-body">

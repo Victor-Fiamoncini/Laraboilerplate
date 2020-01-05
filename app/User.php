@@ -35,7 +35,6 @@ class User extends Authenticatable
         'email',
         'password',
         'cover',
-        'cover_thumb',
         'github_id',
         'google_id',
         'description',
@@ -82,6 +81,16 @@ class User extends Authenticatable
     }
 
     /**
+     * "Employee" relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function employees()
+    {
+        return $this->hasMany(Employee::class, 'admin', 'id');
+    }
+
+    /**
      * Accessor "cover"
      *
      * @return string
@@ -105,13 +114,13 @@ class User extends Authenticatable
     /**
      * Accessor "date_of_birth"
      *
-     * @return string|null
+     * @return string
      */
-    public function getDateOfBirthAttribute(): ?string
+    public function getDateOfBirthAttribute(): string
     {
         return !empty($this->attributes['date_of_birth'])
             ? date('d/m/Y', strtotime($this->attributes['date_of_birth']))
-            : null;
+            : '';
     }
 
     /**
@@ -136,12 +145,12 @@ class User extends Authenticatable
     /**
      * Accessor "zipcode"
      *
-     * @param string $documentCompany
+     * @param string|null $documentCompany
      * @return string
      */
-    public function getZipcodeAttribute(string $zipcode): string
+    public function getZipcodeAttribute(?string $zipcode): string
     {
-        return substr($zipcode, 0, 5) . '-' . substr($zipcode, 5, 3);
+        return !empty($zipcode) ? substr($zipcode, 0, 5) . '-' . substr($zipcode, 5, 3) : '';
     }
 
     /**

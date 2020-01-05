@@ -106,5 +106,10 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth'], 'as' => 'dashbo
      * "/dashboard/companies/{company}/update"
      */
     Route::put('/companies/{company}/update', 'CompanyController@update')->name('companies.update');
+
+    /**
+     * "/dashboard/employees"
+     */
+    Route::resource('employees', 'EmployeeController');
 });
 

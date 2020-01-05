@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterUsersTableInsertCoverThumb extends Migration
+class AlterUsersTableInsertRole extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AlterUsersTableInsertCoverThumb extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('cover_thumb')->nullable();
+            $table->enum('role', ['admin', 'employee'])->default('admin');
         });
     }
 
@@ -26,7 +26,7 @@ class AlterUsersTableInsertCoverThumb extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('cover_thumb');
+            $table->dropColumn('role');
         });
     }
 }

@@ -51,6 +51,16 @@ class Company extends Model
     }
 
     /**
+     * "Employee" relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function employees()
+    {
+        return $this->hasMany(Employee::class, 'admin', 'id');
+    }
+
+    /**
      * Accessor "document_company"
      *
      * @param string $documentCompany

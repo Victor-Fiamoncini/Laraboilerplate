@@ -10,7 +10,7 @@
             {{ $title }}
         </a>
         {{-- User Menu --}}
-        <ul class="navbar-nav align-items-center d-none d-md-flex">
+        <ul class="navbar-nav align-items-center d-none d-md-flex user-menu">
             <li class="nav-item dropdown">
                 <a
                     class="nav-link pr-0"
